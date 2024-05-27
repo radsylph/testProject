@@ -1,0 +1,32 @@
+{
+	"name": "test-project",
+	"version": "1.0.0",
+	"description": "A simple CAP project.",
+	"repository": "<Add your repository here>",
+	"license": "UNLICENSED",
+	"private": true,
+	"type": "module",
+	"dependencies": {
+		"@cap-js/postgres": "^1.8.0",
+		"@cap-js/sqlite": "^1.7.1",
+		"@sap/cds": "^7",
+		"concurrently": "^8.2.2",
+		"express": "^4"
+	},
+	"devDependencies": {
+		"@sap/eslint-plugin-cds": "^3",
+		"eslint": "^9"
+	},
+	"scripts": {
+		"start": "cds-serve",
+		"dev": "cds watch --profile pg",
+		"db:dev": "cds watch --profile dev",
+		"db:deploy": "cds deploy --profile pg",
+		"db:deploy:dev": "cds deploy --profile dev",
+		"db:test": "cds deploy --profile sqlite",
+		"test": "node ./handlers/scripts.js -i",
+		"db:compose": "docker-compose -f pg.yml up -d",
+		"initial": "concurrently \"npm run data:add\" \"npm run db:deploy\"",
+		"data:add": "cds add data"
+	}
+}

@@ -1,0 +1,2 @@
+ID,socialSecurityNumber,position_code,rank_code,salary,status_code,createdAt,createdBy,modifiedAt,modifiedBy,name,lastName,age,email,genre_code,cellphone
+12345678-90AB-CDEF-1234-567890ABCDEF,30683643,1,1,1000,1,2021-06-01 00:00:00,1,2021-06-01 00:00:00,1,John,Doe,30,
