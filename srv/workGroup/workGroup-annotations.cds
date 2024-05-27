@@ -37,18 +37,21 @@ annotate call.workGroup with  @odata.draft.enabled  @(UI: {
             }
         ]
     },
-    LineItem               : [{
-        $Type: 'UI.DataField',
-        Value: name
-    },
-    {
-        $Type: 'UI.DataField',
-        Value: description
-    },
-    {
-        $Type: 'UI.DataField',
-        Value: groupLeader_ID
-    }],
+    LineItem               : [
+        {
+            $Type: 'UI.DataField',
+            Value: name
+        },
+        {
+            $Type: 'UI.DataField',
+            Value: description
+        },
+        {
+            $Type: 'UI.DataField',
+            Value: groupLeader_ID
+        }
+    ],
+
     Facets                 : [
         {
             $Type : 'UI.ReferenceFacet',

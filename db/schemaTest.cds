@@ -105,7 +105,8 @@ entity employee : person {
     rank                 : Association to rank;
     salary               : Integer;
     status               : Association to status;
-//workGroup            : Association to workGroup_employee; //test para el caso de Association #3
+    workGroups           : Composition of many workGroup_employee
+                               on workGroups.employee = $self; //test para el caso de Association #3
 }
 
 //despues
