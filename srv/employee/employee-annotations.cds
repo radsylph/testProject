@@ -192,19 +192,27 @@ annotate call.employee with  @odata.draft.enabled  @(UI: {
             ID    : 'AddressInfoId'
         },
         {
-            $Type : 'UI.ReferenceFacet',
-            Target: 'workGroups/@UI.LineItem#tablaIntermedia',
-            Label : 'Grupos de trabajo',
-            ID    : 'LineItemId',
+            $Type        : 'UI.ReferenceFacet',
+            Target       : 'workGroups/@UI.LineItem#tablaIntermedia',
+            Label        : 'Grupos de trabajo',
+            ID           : 'LineItemId',
+            ![@UI.Hidden]: {$edmJson: {$If: [
+                {$Eq: [
+                    {$Path: 'HasActiveEntity'},
+                    true
+                ]},
+                true,
+                false
+            ]}}
         }
     ]
 });
 
 annotate call.workGroup_employee with @(UI: {LineItem #tablaIntermedia: [{
     $Type: 'UI.DataField',
-    Value: workGroup_ID,
+    Value: workGroup.name,
     //Criticality: #Information,
-    Label: 'Grupo de trabajo',
+    Label: 'Grupo de trabajo'
 }, ]});
 
 annotate call.workGroup_employee with {

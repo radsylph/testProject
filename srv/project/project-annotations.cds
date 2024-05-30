@@ -125,5 +125,8 @@ annotate call.project with  @odata.draft.enabled  @(UI: {
     }]
 });
 
+// annotate call.objetive with @(UI: {
+// })
+
 
 //terminar esto y hacer la tabla intermedia
