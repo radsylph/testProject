@@ -1,6 +1,7 @@
 using {testService as call} from '../services';
 using from '../client/client-annotations';
 using from '../employee/employee-annotations';
+using from '../workGroup/workGroup-annotations';
 
 annotate call.project with {
     name        @title: 'Nombre del proyecto';
@@ -20,7 +21,7 @@ annotate call.project with {
             Parameters    : [
                 {
                     $Type            : 'Common.ValueListParameterInOut',
-                    LocalDataProperty: 'client_ID',
+                    LocalDataProperty: client_ID,
                     ValueListProperty: 'ID'
                 },
                 {
@@ -42,7 +43,7 @@ annotate call.workGroup_project with {
             Parameters    : [
                 {
                     $Type            : 'Common.ValueListParameterInOut',
-                    LocalDataProperty: 'workGroup_ID',
+                    LocalDataProperty: workGroup_ID,
                     ValueListProperty: 'ID'
                 },
                 {
@@ -117,16 +118,83 @@ annotate call.project with  @odata.draft.enabled  @(UI: {
             Value: progress
         }
     ],
-    Facets                 : [{
-        $Type : 'UI.ReferenceFacet',
-        Target: '@UI.FieldGroup#GeneralInfo',
-        Label : 'información general',
-        ID    : 'GeneralInfo'
-    }]
-});
+    Facets                 : [
+        {
+            $Type : 'UI.ReferenceFacet',
+            Target: '@UI.FieldGroup#GeneralInfo',
+            Label : 'información general',
+            ID    : 'GeneralInfo'
+        },
+        {
+            $Type        : 'UI.ReferenceFacet',
+            Target       : 'workGroups/@UI.LineItem#intermediate2',
+            Label        : 'Grupos de trabajo asignados',
+            ID           : 'WorkGroupInfo',
+            ![@UI.Hidden]: {$edmJson: {$If: [
 
-// annotate call.objetive with @(UI: {
-// })
+                {$Eq: [
+                    {$Path: 'HasActiveEntity'},
+                    true
+                ]},
+                true,
+                false
+            ]}},
+        },
+        {
+            $Type : 'UI.ReferenceFacet',
+            Target: 'objetive/@UI.LineItem#objetives',
+            Label : 'Objetivos',
+            ID    : 'ObjetiveInfo'
+        },
+    ]
+});
 
 
 //terminar esto y hacer la tabla intermedia
+annotate call.objetive with {
+    project @(Common: {
+        Text           : project.name,
+        TextArrangement: #TextOnly,
+        ValueList      : {
+            $Type         : 'Common.ValueListType',
+            CollectionPath: 'project',
+            Parameters    : [
+                {
+                    $Type            : 'Common.ValueListParameterInOut',
+                    LocalDataProperty: project_ID,
+                    ValueListProperty: 'ID'
+                },
+                {
+                    $Type            : 'Common.ValueListParameterDisplayOnly',
+                    ValueListProperty: 'name'
+                }
+            ]
+
+        },
+    })
+};
+
+annotate call.objetive with @(UI: {LineItem #objetives: [
+    {
+        $Type: 'UI.DataField',
+        Value: name
+    },
+    {
+        $Type: 'UI.DataField',
+        Value: description
+    },
+    {
+        $Type                  : 'UI.DataField',
+        Value                  : project_ID,
+        Label                  : 'Proyecto',
+        ![@Common.FieldControl]: {$edmJson: {$If: [
+
+            {$Eq: [
+                {$Path: 'HasActiveEntity'},
+                true
+            ]},
+            1,
+            3
+        ]}},
+    }
+]});
