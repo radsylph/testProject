@@ -1,11 +1,13 @@
 using {testService as call} from '../services';
 using from '../employee/employee-annotations';
+using from '../project/project-annotations';
 
 annotate call.workGroup with {
     name         @title: 'Nombre del Grupo';
     description  @title: 'Descripción del Grupo';
     groupLeader  @title: 'Líder del Grupo'  @Common.ValueListWithFixedValues: true;
     project      @title: 'Proyectos'        @Common.ValueListWithFixedValues: true;
+    employee     @title: 'Empleados'        @Common.ValueListWithFixedValues: true;
     ID           @UI.Hidden;
 }
 
@@ -116,7 +118,7 @@ annotate call.workGroup_project with {
                 }
             ]
         },
-        ValueListWithFixedValues: false
+        ValueListWithFixedValues: true
     })
 }
 
@@ -133,9 +135,17 @@ annotate call.workGroup_project with @(
             Label: 'Project'
         },
         {
-            $Type: 'UI.DataField',
-            Value: workGroup_ID,
-            Label: 'WorkGroup'
+            $Type                  : 'UI.DataField',
+            Value                  : workGroup_ID,
+            Label                  : 'WorkGroup',
+            ![@Common.FieldControl]: {$edmJson: {$If: [
+                {$Eq: [
+                    {$Path: 'HasActiveEntity'},
+                    true
+                ]},
+                1,
+                3
+            ]}},
         }
     ]}
 );
@@ -177,9 +187,18 @@ annotate call.workGroup_employee with @(
             Label: 'Employee'
         },
         {
-            $Type: 'UI.DataField',
-            Value: workGroup_ID,
-            Label: 'WorkGroup'
+            $Type                  : 'UI.DataField',
+            Value                  : workGroup_ID,
+            Label                  : 'WorkGroup',
+            ![@Common.FieldControl]: {$edmJson: {$If: [
+
+                {$Eq: [
+                    {$Path: 'HasActiveEntity'},
+                    true
+                ]},
+                1,
+                3
+            ]}},
         }
     ], }
 );
