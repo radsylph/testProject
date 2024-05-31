@@ -216,7 +216,7 @@ annotate call.workGroup_employee with @(UI: {LineItem #tablaIntermedia: [{
 }, ]});
 
 annotate call.workGroup_employee with {
-    employee @(Common: {
+    workGroup @(Common: {
         Text                    : workGroup.name,
         TextArrangement         : #TextOnly,
         ValueList               : {
