@@ -9,6 +9,6 @@ service testService @(path: '/testRoute') {
     entity workGroup_employee as projection on db.workGroup_employee;
     entity workGroup_project  as projection on db.workGroup_project;
     entity objetive           as projection on db.objetive;
-    entity task               as projection on db.task;
+//entity task               as projection on db.task;
 //entity person as projection on db.person;
 }
