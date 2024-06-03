@@ -31,11 +31,27 @@ annotate call.workGroup with  @odata.draft.enabled  @(UI: {
             },
             {
                 $Type: 'UI.DataField',
-                Value: description
+                Value: description,
+
             },
             {
-                $Type: 'UI.DataField',
-                Value: groupLeader_ID
+                $Type     : 'UI.DataField',
+                Value     : groupLeader_ID,
+                @UI.Hidden: {$edmJson: {$If: [
+                    {$Or: [
+                        {$Ne: [
+                            {$Path: 'name'},
+                            ''
+                        ]},
+                        {$Ne: [
+                            {$Path: 'description'},
+                            ''
+                        ]}
+                    ]},
+                    false,
+                    true
+                ]}},
+
             }
         ]
     },
@@ -50,7 +66,8 @@ annotate call.workGroup with  @odata.draft.enabled  @(UI: {
         },
         {
             $Type: 'UI.DataField',
-            Value: groupLeader_ID
+            Value: groupLeader_ID,
+
         }
     ],
 
@@ -65,8 +82,9 @@ annotate call.workGroup with  @odata.draft.enabled  @(UI: {
             $Type : 'UI.ReferenceFacet',
             Target: 'project/@UI.LineItem#intermediate2',
             Label : 'Proyectos',
-            ID    : 'ProjectsFacet'
+            ID    : 'ProjectsFacet',
         },
+
         {
             $Type : 'UI.ReferenceFacet',
             Target: 'employee/@UI.LineItem#intermediate',
