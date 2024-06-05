@@ -22,6 +22,7 @@ annotate call.workGroup with  @odata.draft.enabled  @(UI: {
         }
     },
     SelectionFields        : [name],
+
     FieldGroup #GeneralInfo: {
         $Type: 'UI.FieldGroupType',
         Data : [
@@ -55,6 +56,7 @@ annotate call.workGroup with  @odata.draft.enabled  @(UI: {
             }
         ]
     },
+    
     LineItem               : [
         {
             $Type: 'UI.DataField',

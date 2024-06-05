@@ -66,19 +66,18 @@ annotate call.workGroup_project with @(UI: {
 
     SelectionFields: [workGroup_ID],
 
-    Facets         : [
-        {
-            $Type : 'UI.ReferenceFacet',
-            Target: 'project/@UI.FieldGroup#GeneralInfo',
-            Label : 'Projecto asignado',
-            ID    : 'GeneralInfo'
-        },
-        {
-            $Type : 'UI.ReferenceFacet',
-            Target: 'project/objetive/@UI.LineItem#objetives',
-            Label : 'Objetivos',
-            ID    : 'objetiveList'
-        }
+    Facets         : [{
+        $Type : 'UI.ReferenceFacet',
+        Target: 'project/@UI.FieldGroup#GeneralInfo',
+        Label : 'Projecto asignado',
+        ID    : 'GeneralInfo'
+    },  
+    {
+        $Type : 'UI.ReferenceFacet',
+        Target: 'project/objetive/@UI.LineItem#objetives',
+        Label : 'Objetivos',
+        ID    : 'objetiveList'
+    },
     // {
     //     $Type : 'UI.ReferenceFacet',
     //     Target: 'workGroup/@UI.LineItem#testTask',
