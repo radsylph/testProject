@@ -78,6 +78,9 @@ entity project : cuid, managed {
                       on objetive.project = $self;
     workGroups  : Association to many workGroup_project
                       on workGroups.project = $self;
+    starDate    : DateTime; //poner fecha de inicio y fecha de fin
+    endDate     : DateTime;
+//poner fecha de inicio y fecha de fin
 }
 
 
@@ -101,8 +104,6 @@ entity employee : person {
     status               : Association to status;
     workGroups           : Association to many workGroup_employee
                                on workGroups.employee = $self; //test para el caso de Association #3
-
-
 }
 
 //despues
@@ -120,6 +121,7 @@ entity objetive : cuid, managed {
     description : String;
     status      : Boolean default false;
     project     : Association to project @mandatory;
+    progress    : Integer default 0;
     task        : Association to many task
                       on task.objetive = $self;
 }
@@ -134,17 +136,3 @@ entity workGroup : cuid, managed {
                       on employee.workGroup = $self;
 
 }
-//     project: Association to project @mandatory;
-//     description: String @mandatory;
-//     objetive_progress: Integer default 0;
-//     status: Boolean default false;
-//     workGroup: Composition of many employee on project_wrokGroup.project = $self;
-//     priority: Assosiation of priority @mandatory;
-// }
-
-// entity project_workGroup: cuid{
-//     project: Assosiation to project @mandatory ;
-//     employee: Assosiation to employee @mandatory;
-// }
-
-// re hacer los objetivos
