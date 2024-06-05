@@ -1,4 +1,3 @@
-// archivo: srv/services.cds
 using {com.test as db} from '../db/schemaTest';
 
 service testService @(path: '/testRoute') {
