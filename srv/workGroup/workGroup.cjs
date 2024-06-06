@@ -16,7 +16,8 @@ module.exports = (srv) => {
 
   srv.before(["CREATE", "UPDATE"], "testService.workGroup", async (req) => {
     const employeeIds = new Set();
-    const promises = req.data.employee.map(async (employee) => {
+    const projectIds = new Set();
+    const promise1 = req.data.employee.map(async (employee) => {
       if (employee.employee_ID !== undefined) {
         console.log(employee.employee_ID);
         const ExistingEmployee = await cds.transaction(req).run(
@@ -40,13 +41,34 @@ module.exports = (srv) => {
         req.error(400, "Undefined");
       }
     });
-    await Promise.all(promises);
+    const promise2 = req.data.project.map(async (project) => {
+      if (project.project_ID !== undefined) {
+        const ExistingProject = await cds.transaction(req).run(
+          SELECT.from("testService.project").where({
+            ID: project.project_ID,
+          })
+        );
+
+        if (!ExistingProject.length) {
+          req.error(400, "el proyecto no ha sido encontrado");
+          return;
+        }
+
+        projectIds.add(project.project_ID);
+
+        if (projectIds.has(project.project_ID)) {
+          req.error(400, "el proyecto ya esta en el grupo");
+          return;
+        }
+      } else {
+        req.error(400, "Undefined");
+      }
+    });
+    await Promise.all([promise1, promise2]);
   });
 
   srv.after(["CREATE", "UPDATE"], "testService.workGroup", async (req) => {
     console.log("after create event triggered for workGroup");
-
-    //console.log("datos: ", req);
-    //cosas para los task
+    
   });
 };
