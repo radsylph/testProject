@@ -25,11 +25,11 @@ annotate call.employee with {
 annotate call.employee with  @odata.draft.enabled  @(UI: {
     HeaderInfo              : {
         $Type         : 'UI.HeaderInfoType',
-        TypeName      : 'Empleado',
-        TypeNamePlural: 'Empleados',
+        TypeName      : '{i18n>employee}',
+        TypeNamePlural: '{i18n>employees}',
         Title         : {
             $Type: 'UI.DataField',
-            Value: 'prueba header title'
+            Value: '{i18n>employee}'
         }
     },
 
