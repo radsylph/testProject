@@ -1,5 +1,5 @@
 const cds = require("@sap/cds");
-
+const textBundle = require("../../helpers/textBundle");
 console.log("employee handler loaded");
 const emailRegex =
   /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(\.[a-zAZ0-9-]+)*$/;
@@ -10,11 +10,13 @@ const validateEmail = (email) => {
 module.exports = (srv) => {
   srv.before(["CREATE", "UPDATE"], "testService.employee", async (req) => {
     //console.log("employee struct: ", req.data);
+    const locale = req.user.locale;
+    const bundle = textBundle.getTextBundle(locale);
     const employee = req.data;
     const employeeEmail = validateEmail(employee.email);
     console.log(employeeEmail);
-    if (employee === false) {
-      return req.error(400, "The Email is not valid");
+    if (employeeEmail === false) {
+      return req.error(400, bundle.getText("error1"));
     }
 
     const existingEmail = await cds.transaction(req).run(

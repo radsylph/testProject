@@ -9,6 +9,8 @@ annotate call.project with {
     client      @title: 'Cliente del proyecto'  @Common.ValueListWithFixedValues: true;
     //workGroups  @title: 'Grupo de trabajo asignado'  @Common.ValueListWithFixedValues: true;
     progress    @title: 'Progreso del proyecto';
+    starDate    @title: 'Fecha de inicio';
+    endDate     @title: 'Fecha de finalización';
 }
 
 annotate call.project with {
@@ -87,12 +89,15 @@ annotate call.project with  @odata.draft.enabled  @(UI: {
             },
             // {
             //     $Type: 'UI.DataField',
-            //     Value: workGroups_ID,
-            //     Label: 'Grupo de trabajo asignado'
+            //     Value: progress
             // },
             {
                 $Type: 'UI.DataField',
-                Value: progress
+                Value: starDate
+            },
+            {
+                $Type: 'UI.DataField',
+                Value: endDate
             }
         ]
     },
@@ -169,7 +174,6 @@ annotate call.objetive with {
                     ValueListProperty: 'name'
                 }
             ]
-
         },
     })
 };
