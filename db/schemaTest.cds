@@ -40,12 +40,23 @@ entity rank : CodeList {
         descr : String @UI.Hidden;
 }
 
-entity status : CodeList {
+entity employee_status : CodeList {
     key code  : String enum {
             Active    = 'ACT';
             Inactive  = 'INA';
             Suspended = 'SUS';
             Deleted   = 'DEL';
+        };
+        name  : String @UI.Hidden;
+        descr : String @UI.Hidden;
+}
+
+entity project_status : CodeList {
+    key code  : String enum {
+            Incomplete = 'INC';
+            Complete   = 'COM';
+            Cancelled  = 'CAN';
+            Ongoing    = 'ONG';
         };
         name  : String @UI.Hidden;
         descr : String @UI.Hidden;
@@ -74,13 +85,14 @@ entity project : cuid, managed {
     description : String default 'No description';
     client      : Association to client;
     progress    : Integer default 0;
-    objetive    : Composition of many objetive
-                      on objetive.project = $self;
+    objective   : Composition of many objective
+                      on objective.project = $self;
     workGroups  : Association to many workGroup_project
                       on workGroups.project = $self;
-    starDate    : DateTime; //poner fecha de inicio y fecha de fin
+    starDate    : DateTime;
+    status      : Association to project_status;
     endDate     : DateTime;
-//poner fecha de inicio y fecha de fin
+
 }
 
 
@@ -101,7 +113,7 @@ entity employee : person {
     position             : Association to position;
     rank                 : Association to rank;
     salary               : Integer;
-    status               : Association to status;
+    status               : Association to employee_status;
     workGroups           : Association to many workGroup_employee
                                on workGroups.employee = $self; //test para el caso de Association #3
 }
@@ -112,18 +124,18 @@ entity task : cuid, managed {
     name        : String                   @mandatory;
     description : String default 'No description';
     status      : Boolean default false;
-    objetive    : Association to objetive  @mandatory;
+    objective   : Association to objective @mandatory;
     workGroup   : Association to workGroup @mandatory;
 }
 
-entity objetive : cuid, managed {
+entity objective : cuid, managed {
     name        : String;
     description : String;
     status      : Boolean default false;
     project     : Association to project @mandatory;
     progress    : Integer default 0;
     task        : Association to many task
-                      on task.objetive = $self;
+                      on task.objective = $self;
 }
 
 entity workGroup : cuid, managed {
@@ -134,5 +146,4 @@ entity workGroup : cuid, managed {
                       on project.workGroup = $self;
     employee    : Composition of many workGroup_employee
                       on employee.workGroup = $self;
-
 }
