@@ -4,13 +4,13 @@ using from '../employee/employee-annotations';
 using from '../workGroup/workGroup-annotations';
 
 annotate call.project with {
-    name        @title: 'Nombre del proyecto';
-    description @title: 'Descripción del proyecto';
-    client      @title: 'Cliente del proyecto'  @Common.ValueListWithFixedValues: true;
+    name        @title: '{i18n>project.name}';
+    description @title: '{i18n>project.description}';
+    client      @title: '{i18n>project.client}'  @Common.ValueListWithFixedValues: true;
     //workGroups  @title: 'Grupo de trabajo asignado'  @Common.ValueListWithFixedValues: true;
-    progress    @title: 'Progreso del proyecto';
-    starDate    @title: 'Fecha de inicio';
-    endDate     @title: 'Fecha de finalización';
+    progress    @title: '{i18n>project.progress}';
+    starDate    @title: '{i18n>project.starDate}';
+    endDate     @title: '{i18n>project.endDate}';
 }
 
 annotate call.project with {
@@ -60,11 +60,11 @@ annotate call.workGroup_project with {
 annotate call.project with  @odata.draft.enabled  @(UI: {
     HeaderInfo             : {
         $Type         : 'UI.HeaderInfoType',
-        TypeName      : 'Proyecto',
-        TypeNamePlural: 'Proyectos',
+        TypeName      : '{i18n>project}',
+        TypeNamePlural: '{i18n>projects}',
         Title         : {
             $Type: 'UI.DataField',
-            Value: 'prueba header title proyecto'
+            Value: '{i18n>project.label1}'
         }
     },
     SelectionFields        : [client.name,
@@ -76,43 +76,60 @@ annotate call.project with  @odata.draft.enabled  @(UI: {
         Data : [
             {
                 $Type: 'UI.DataField',
-                Value: name
+                Value: name,
+                Label: '{i18n>project.name}'
             },
             {
                 $Type: 'UI.DataField',
-                Value: description
+                Value: description,
+                Label: '{i18n>project.description}'
             },
             {
                 $Type: 'UI.DataField',
                 Value: client_ID,
-                Label: 'Cliente'
-            },
-            // {
-            //     $Type: 'UI.DataField',
-            //     Value: progress
-            // },
-            {
-                $Type: 'UI.DataField',
-                Value: starDate
+                Label: '{i18n>project.client}'
             },
             {
+                $Type                  : 'UI.DataField',
+                Value                  : progress,
+                Label                  : '{i18n>project.progress}',
+                ![@Common.FieldControl]: {$edmJson: {$If: [
+
+                    {$Eq: [
+                        {$Path: 'HasActiveEntity'},
+                        true
+                    ]},
+                    1,
+                    3
+                ]}},
+            },
+            {
                 $Type: 'UI.DataField',
-                Value: endDate
+                Value: starDate,
+                Label: '{i18n>project.startDate}'
+            },
+            {
+                $Type: 'UI.DataField',
+                Value: endDate,
+                Label: '{i18n>project.endDate}'
             }
         ]
     },
     LineItem               : [
         {
             $Type: 'UI.DataField',
-            Value: name
+            Value: name,
+            Label: '{i18n>project.name}'
         },
         {
             $Type: 'UI.DataField',
-            Value: description
+            Value: description,
+            Label: '{i18n>project.description}'
         },
         {
             $Type: 'UI.DataField',
-            Value: client_ID
+            Value: client_ID,
+            Label: '{i18n>project.client}'
         },
         // {
         //     $Type: 'UI.DataField',
@@ -120,20 +137,21 @@ annotate call.project with  @odata.draft.enabled  @(UI: {
         // },
         {
             $Type: 'UI.DataField',
-            Value: progress
+            Value: progress,
+            Label: '{i18n>project.progress}'
         }
     ],
     Facets                 : [
         {
             $Type : 'UI.ReferenceFacet',
             Target: '@UI.FieldGroup#GeneralInfo',
-            Label : 'información general',
+            Label : '{i18n>project.label1}',
             ID    : 'GeneralInfo'
         },
         {
             $Type        : 'UI.ReferenceFacet',
             Target       : 'workGroups/@UI.LineItem#intermediate2',
-            Label        : 'Grupos de trabajo asignados',
+            Label        : '{i18n>project.groups}',
             ID           : 'WorkGroupInfo',
             ![@UI.Hidden]: {$edmJson: {$If: [
 
@@ -148,7 +166,7 @@ annotate call.project with  @odata.draft.enabled  @(UI: {
         {
             $Type : 'UI.ReferenceFacet',
             Target: 'objetive/@UI.LineItem#objetives',
-            Label : 'Objetivos',
+            Label : '{i18n>project.label4}',
             ID    : 'ObjetiveInfo'
         },
     ]
@@ -181,16 +199,19 @@ annotate call.objetive with {
 annotate call.objetive with @(UI: {LineItem #objetives: [
     {
         $Type: 'UI.DataField',
-        Value: name
+        Value: name,
+        Label: '{i18n>objetive.name}'
+
     },
     {
         $Type: 'UI.DataField',
-        Value: description
+        Value: description,
+        Label: '{i18n>objetive.description}'
     },
     {
         $Type                  : 'UI.DataField',
         Value                  : project_ID,
-        Label                  : 'Proyecto',
+        Label                  : '{i18n>project}',
         ![@Common.FieldControl]: {$edmJson: {$If: [
 
             {$Eq: [
