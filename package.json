@@ -5,11 +5,11 @@
 	"repository": "<Add your repository here>",
 	"license": "UNLICENSED",
 	"private": true,
-	"type": "module",
 	"dependencies": {
 		"@cap-js/postgres": "^1.8.0",
 		"@cap-js/sqlite": "^1.7.1",
 		"@sap/cds": "^7",
+		"@sap/textbundle": "^5.1.0",
 		"concurrently": "^8.2.2",
 		"express": "^4"
 	},

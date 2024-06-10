@@ -13,53 +13,27 @@ annotate call.employee with {
     rank                 @title: 'Rango'     @Common.ValueListWithFixedValues: true;
     salary               @title: 'Salario';
     status               @title: 'Estado';
-    
-//workGroups           @title: 'Grupos de Trabajo';
+    ID                   @UI.Hidden;
+
 }
 
-
-// annotate call.workGroup_employee with {
-//     workGroup @(Common: {
-//         Text           : workGroup.name,
-//         TextArrangement: #TextOnly,
-//         ValueList      : {
-//             $Type         : 'Common.ValueListType',
-//             CollectionPath: 'workGroup',
-//             Parameters    : [
-//                 {
-//                     $Type            : 'Common.ValueListParameterInOut',
-//                     LocalDataProperty: 'workGroup_ID',
-//                     ValueListProperty: 'ID',
-//                 },
-//                 {
-//                     $Type            : 'Common.ValueListParameterDisplayOnly',
-//                     ValueListProperty: 'name',
-//                 }
-//             ]
-//         },
-//     })
-// }
-
 annotate call.employee with {
-
     status @Common.ValueListWithFixedValues: true;
     genre  @Common.ValueListWithFixedValues: true;
-//workGroups @Common.ValueListWithFixedValues: true;
-};
-
+}
 
 annotate call.employee with  @odata.draft.enabled  @(UI: {
     HeaderInfo              : {
         $Type         : 'UI.HeaderInfoType',
-        TypeName      : 'Empleado',
-        TypeNamePlural: 'Empleados',
+        TypeName      : '{i18n>employee}',
+        TypeNamePlural: '{i18n>employees}',
         Title         : {
             $Type: 'UI.DataField',
-            Value: 'prueba header title'
+            Value: '{i18n>employee}'
         }
     },
 
-    SelectionFields         : [ // investigar el @capabilities
+    SelectionFields         : [
         status_code,
         rank_code,
         position_code
@@ -95,12 +69,7 @@ annotate call.employee with  @odata.draft.enabled  @(UI: {
             {
                 $Type: 'UI.DataField',
                 Value: socialSecurityNumber
-            } //,
-        // {
-        //     $Type: 'UI.DataField',
-        //     Value: workGroups.workGroup_ID,
-        //     Label: 'Grupos de Trabajo'
-        // }
+            }
         ]
     },
 
@@ -142,7 +111,7 @@ annotate call.employee with  @odata.draft.enabled  @(UI: {
         ]
     },
 
-    LineItem                : [ ///recordar que tengo que ponerle un #test para que funcione lo de los workGroups
+    LineItem                : [
         {
             $Type: 'UI.DataField',
             Value: name
@@ -206,12 +175,7 @@ annotate call.employee with  @odata.draft.enabled  @(UI: {
         {
             $Type: 'UI.DataField',
             Value: status_code
-        } //,
-    // {
-    //     $Type: 'UI.DataField',
-    //     Value: workGroups.workGroup_ID,
-    //     Label: 'Grupos de Trabajo'
-    // }
+        }
     ],
 
     Facets                  : [
@@ -227,12 +191,50 @@ annotate call.employee with  @odata.draft.enabled  @(UI: {
             Label : 'Información de Dirección',
             ID    : 'AddressInfoId'
         },
-    // {
-    //     $Type : 'UI.ReferenceFacet',
-    //     Target: '@UI.LineItem#test',
-    //     Label : 'LineItem Test',
-    //     ID    : 'LineItemId'
-
-    // }
+        {
+            $Type        : 'UI.ReferenceFacet',
+            Target       : 'workGroups/@UI.LineItem#tablaIntermedia',
+            Label        : 'Grupos de trabajo',
+            ID           : 'LineItemId',
+            ![@UI.Hidden]: {$edmJson: {$If: [
+                {$Eq: [
+                    {$Path: 'HasActiveEntity'},
+                    true
+                ]},
+                true,
+                false
+            ]}}
+        }
     ]
 });
+
+annotate call.workGroup_employee with @(UI: {LineItem #tablaIntermedia: [{
+    $Type: 'UI.DataField',
+    Value: workGroup.name,
+    //Criticality: #Information,
+    Label: 'Grupo de trabajo'
+}, ]});
+
+annotate call.workGroup_employee with {
+    workGroup @(Common: {
+        Text                    : workGroup.name,
+        TextArrangement         : #TextOnly,
+        ValueList               : {
+            $Type         : 'Common.ValueListType',
+            Label         : 'Grupos de trabajos',
+            CollectionPath: 'workGroup',
+            Parameters    : [
+                {
+                    $Type            : 'Common.ValueListParameterOut',
+                    LocalDataProperty: workGroup_ID,
+                    ValueListProperty: 'ID',
+                },
+                {
+                    $Type            : 'Common.ValueListParameterDisplayOnly',
+                    ValueListProperty: 'name',
+                }
+            ]
+        },
+        ValueListWithFixedValues: false,
+    })
+}

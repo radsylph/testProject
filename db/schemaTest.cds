@@ -76,6 +76,54 @@ entity project : cuid, managed {
     progress    : Integer default 0;
     objetive    : Composition of many objetive
                       on objetive.project = $self;
+    workGroups  : Association to many workGroup_project
+                      on workGroups.project = $self;
+    starDate    : DateTime; //poner fecha de inicio y fecha de fin
+    endDate     : DateTime;
+//poner fecha de inicio y fecha de fin
+}
+
+
+entity workGroup_employee : cuid, managed {
+    workGroup : Association to workGroup;
+    employee  : Association to employee;
+}
+
+entity workGroup_project : cuid, managed {
+    workGroup : Association to workGroup;
+    project   : Association to project;
+//task      : Association to task;
+}
+
+
+entity employee : person {
+    socialSecurityNumber : String;
+    position             : Association to position;
+    rank                 : Association to rank;
+    salary               : Integer;
+    status               : Association to status;
+    workGroups           : Association to many workGroup_employee
+                               on workGroups.employee = $self; //test para el caso de Association #3
+}
+
+//despues
+
+entity task : cuid, managed {
+    name        : String                   @mandatory;
+    description : String default 'No description';
+    status      : Boolean default false;
+    objetive    : Association to objetive  @mandatory;
+    workGroup   : Association to workGroup @mandatory;
+}
+
+entity objetive : cuid, managed {
+    name        : String;
+    description : String;
+    status      : Boolean default false;
+    project     : Association to project @mandatory;
+    progress    : Integer default 0;
+    task        : Association to many task
+                      on task.objetive = $self;
 }
 
 entity workGroup : cuid, managed {
@@ -86,57 +134,5 @@ entity workGroup : cuid, managed {
                       on project.workGroup = $self;
     employee    : Composition of many workGroup_employee
                       on employee.workGroup = $self;
+
 }
-
-entity workGroup_employee : cuid, managed {
-    workGroup : Association to workGroup;
-    employee  : Association to employee;
-}
-
-entity workGroup_project : cuid, managed {
-    workGroup : Association to workGroup;
-    project   : Association to project;
-}
-
-
-entity employee : person {
-    socialSecurityNumber : String;
-    position             : Association to position;
-    rank                 : Association to rank;
-    salary               : Integer;
-    status               : Association to status;
-//workGroup            : Association to workGroup_employee; //test para el caso de Association #3
-}
-
-//despues
-
-entity task : cuid, managed {
-    name        : String                  @mandatory;
-    description : String default 'No description';
-    status      : Boolean default false;
-    objetive    : Association to objetive @mandatory;
-}
-
-entity objetive : cuid, managed {
-    name        : String;
-    description : String;
-    status      : Boolean default false;
-    project     : Association to project @mandatory;
-    task        : Composition of many task
-                      on task.objetive = $self;
-}
-
-//     project: Association to project @mandatory;
-//     description: String @mandatory;
-//     objetive_progress: Integer default 0;
-//     status: Boolean default false;
-//     workGroup: Composition of many employee on project_wrokGroup.project = $self;
-//     priority: Assosiation of priority @mandatory;
-// }
-
-// entity project_workGroup: cuid{
-//     project: Assosiation to project @mandatory ;
-//     employee: Assosiation to employee @mandatory;
-// }
-
-// re hacer los objetivos

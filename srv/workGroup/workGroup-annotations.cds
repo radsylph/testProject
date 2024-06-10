@@ -1,11 +1,13 @@
 using {testService as call} from '../services';
 using from '../employee/employee-annotations';
+using from '../project/project-annotations';
 
 annotate call.workGroup with {
     name         @title: 'Nombre del Grupo';
     description  @title: 'Descripción del Grupo';
     groupLeader  @title: 'Líder del Grupo'  @Common.ValueListWithFixedValues: true;
     project      @title: 'Proyectos'        @Common.ValueListWithFixedValues: true;
+    employee     @title: 'Empleados'        @Common.ValueListWithFixedValues: true;
     ID           @UI.Hidden;
 }
 
@@ -20,6 +22,7 @@ annotate call.workGroup with  @odata.draft.enabled  @(UI: {
         }
     },
     SelectionFields        : [name],
+
     FieldGroup #GeneralInfo: {
         $Type: 'UI.FieldGroupType',
         Data : [
@@ -29,26 +32,47 @@ annotate call.workGroup with  @odata.draft.enabled  @(UI: {
             },
             {
                 $Type: 'UI.DataField',
-                Value: description
+                Value: description,
+
             },
             {
-                $Type: 'UI.DataField',
-                Value: groupLeader_ID
+                $Type     : 'UI.DataField',
+                Value     : groupLeader_ID,
+                @UI.Hidden: {$edmJson: {$If: [
+                    {$Or: [
+                        {$Ne: [
+                            {$Path: 'name'},
+                            ''
+                        ]},
+                        {$Ne: [
+                            {$Path: 'description'},
+                            ''
+                        ]}
+                    ]},
+                    false,
+                    true
+                ]}},
+
             }
         ]
     },
-    LineItem               : [{
-        $Type: 'UI.DataField',
-        Value: name
-    },
-    {
-        $Type: 'UI.DataField',
-        Value: description
-    },
-    {
-        $Type: 'UI.DataField',
-        Value: groupLeader_ID
-    }],
+    
+    LineItem               : [
+        {
+            $Type: 'UI.DataField',
+            Value: name
+        },
+        {
+            $Type: 'UI.DataField',
+            Value: description
+        },
+        {
+            $Type: 'UI.DataField',
+            Value: groupLeader_ID,
+
+        }
+    ],
+
     Facets                 : [
         {
             $Type : 'UI.ReferenceFacet',
@@ -60,8 +84,9 @@ annotate call.workGroup with  @odata.draft.enabled  @(UI: {
             $Type : 'UI.ReferenceFacet',
             Target: 'project/@UI.LineItem#intermediate2',
             Label : 'Proyectos',
-            ID    : 'ProjectsFacet'
+            ID    : 'ProjectsFacet',
         },
+
         {
             $Type : 'UI.ReferenceFacet',
             Target: 'employee/@UI.LineItem#intermediate',
@@ -113,7 +138,7 @@ annotate call.workGroup_project with {
                 }
             ]
         },
-        ValueListWithFixedValues: false
+        ValueListWithFixedValues: true
     })
 }
 
@@ -130,9 +155,17 @@ annotate call.workGroup_project with @(
             Label: 'Project'
         },
         {
-            $Type: 'UI.DataField',
-            Value: workGroup_ID,
-            Label: 'WorkGroup'
+            $Type                  : 'UI.DataField',
+            Value                  : workGroup_ID,
+            Label                  : 'WorkGroup',
+            ![@Common.FieldControl]: {$edmJson: {$If: [
+                {$Eq: [
+                    {$Path: 'HasActiveEntity'},
+                    true
+                ]},
+                1,
+                3
+            ]}},
         }
     ]}
 );
@@ -174,9 +207,18 @@ annotate call.workGroup_employee with @(
             Label: 'Employee'
         },
         {
-            $Type: 'UI.DataField',
-            Value: workGroup_ID,
-            Label: 'WorkGroup'
+            $Type                  : 'UI.DataField',
+            Value                  : workGroup_ID,
+            Label                  : 'WorkGroup',
+            ![@Common.FieldControl]: {$edmJson: {$If: [
+
+                {$Eq: [
+                    {$Path: 'HasActiveEntity'},
+                    true
+                ]},
+                1,
+                3
+            ]}},
         }
     ], }
 );
