@@ -1,18 +1,18 @@
 using {testService as call} from '../services';
 
 annotate call.employee with {
-    name                 @title: 'Nombre';
-    lastName             @title: 'Apellido';
-    age                  @title: 'Edad';
-    email                @title: 'Correo';
-    genre                @title: 'Genero';
-    cellphone            @title: 'Celular';
+    name                 @title: '{i18n>name}';
+    lastName             @title: '{i18n>lastname}';
+    age                  @title: '{i18n>age}';
+    email                @title: '{i18n>email}';
+    genre                @title: '{i18n>genre}';
+    cellphone            @title: '{i18n>cellphone}';
     principal_address;
-    socialSecurityNumber @title: 'Numero de Seguro Social';
-    position             @title: 'Posicion'  @Common.ValueListWithFixedValues: true;
-    rank                 @title: 'Rango'     @Common.ValueListWithFixedValues: true;
-    salary               @title: 'Salario';
-    status               @title: 'Estado';
+    socialSecurityNumber @title: '{i18n>SCN}';
+    position             @title: '{i18n>position}'  @Common.ValueListWithFixedValues: true;
+    rank                 @title: '{i18n>rank}'      @Common.ValueListWithFixedValues: true;
+    salary               @title: '{i18n>salary}';
+    status               @title: '{i18n>status}';
     ID                   @UI.Hidden;
 
 }
@@ -29,7 +29,7 @@ annotate call.employee with  @odata.draft.enabled  @(UI: {
         TypeNamePlural: '{i18n>employees}',
         Title         : {
             $Type: 'UI.DataField',
-            Value: '{i18n>employee}'
+            Value: name
         }
     },
 
@@ -139,22 +139,22 @@ annotate call.employee with  @odata.draft.enabled  @(UI: {
         {
             $Type: 'UI.DataField',
             Value: principal_address_street,
-            Label: 'Calle'
+        // Label: 'C'
         },
         {
             $Type: 'UI.DataField',
             Value: principal_address_city,
-            Label: 'ciudad'
+
         },
         {
             $Type: 'UI.DataField',
             Value: principal_address_state,
-            Label: 'Estado'
+
         },
         {
             $Type: 'UI.DataField',
             Value: principal_address_zip,
-            Label: 'zipCode'
+
         },
         {
             $Type: 'UI.DataField',
@@ -182,19 +182,19 @@ annotate call.employee with  @odata.draft.enabled  @(UI: {
         {
             $Type : 'UI.ReferenceFacet',
             Target: '@UI.FieldGroup#PersonalInfo',
-            Label : 'Información Personal',
+            Label : '{i18n>employee.label1}',
             ID    : 'PersonalInfoId'
         },
         {
             $Type : 'UI.ReferenceFacet',
             Target: '@UI.FieldGroup#AddressInfo',
-            Label : 'Información de Dirección',
+            Label : '{i18n>employee.label2}',
             ID    : 'AddressInfoId'
         },
         {
             $Type        : 'UI.ReferenceFacet',
             Target       : 'workGroups/@UI.LineItem#tablaIntermedia',
-            Label        : 'Grupos de trabajo',
+            Label        : '{i18n>WxE.label1}',
             ID           : 'LineItemId',
             ![@UI.Hidden]: {$edmJson: {$If: [
                 {$Eq: [

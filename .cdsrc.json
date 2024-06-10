@@ -1,9 +1,9 @@
 {
 	"cds": {
 		"i18n": {
-			"default_language": "en_GB",
+			"default_language": "en_US",
 			"folders": ["i18n"],
-			"preserved_locales": ["es_ES"]
+			"preserved_locales": []
 		}
 	}
 }

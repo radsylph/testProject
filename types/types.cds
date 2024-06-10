@@ -1,6 +1,6 @@
 type Address {
-    street : String  @title: 'calle';
-    city   : String  @title: 'ciudad';
-    state  : String  @title: 'estado';
-    zip    : Integer @title: 'codigo postal';
+    street : String  @title: '{i18n>address.street}';
+    city   : String  @title: '{i18n>address.city}';
+    state  : String  @title: '{i18n>address.state}';
+    zip    : Integer @title: '{i18n>address.zip}';
 }

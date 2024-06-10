@@ -26,6 +26,7 @@
 		"db:test": "cds deploy --profile sqlite",
 		"test": "node ./handlers/scripts.js -i",
 		"db:compose": "docker-compose -f pg.yml up -d",
+		"docker:init": "concurrently \"npm run db:compose\" \"npm run initial\"",
 		"initial": "concurrently \"npm run data:add\" \"npm run db:deploy\"",
 		"data:add": "cds add data"
 	}
