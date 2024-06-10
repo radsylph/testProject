@@ -1,7 +1,7 @@
 using {testService as call} from '../../services';
 using from '../../workGroup/workGroup-annotations';
 using from '../../project/project-annotations';
-using from '../../objetive/objetive-annotations';
+using from '../../objective/objective-annotations';
 
 annotate call.workGroup_project with {
     workGroup  @title: 'Grupo de trabajo'  @Common.ValueListWithFixedValues: true;
@@ -66,18 +66,19 @@ annotate call.workGroup_project with @(UI: {
 
     SelectionFields: [workGroup_ID],
 
-    Facets         : [{
-        $Type : 'UI.ReferenceFacet',
-        Target: 'project/@UI.FieldGroup#GeneralInfo',
-        Label : 'Projecto asignado',
-        ID    : 'GeneralInfo'
-    },  
-    {
-        $Type : 'UI.ReferenceFacet',
-        Target: 'project/objetive/@UI.LineItem#objetives',
-        Label : 'Objetivos',
-        ID    : 'objetiveList'
-    },
+    Facets         : [
+        {
+            $Type : 'UI.ReferenceFacet',
+            Target: 'project/@UI.FieldGroup#GeneralInfo',
+            Label : 'Projecto asignado',
+            ID    : 'GeneralInfo'
+        },
+        {
+            $Type : 'UI.ReferenceFacet',
+            Target: 'project/objective/@UI.LineItem#objetives',
+            Label : 'Objetivos',
+            ID    : 'objetiveList'
+        },
     // {
     //     $Type : 'UI.ReferenceFacet',
     //     Target: 'workGroup/@UI.LineItem#testTask',

@@ -9,6 +9,7 @@ annotate call.project with {
     client      @title: '{i18n>project.client}'  @Common.ValueListWithFixedValues: true;
     //workGroups  @title: 'Grupo de trabajo asignado'  @Common.ValueListWithFixedValues: true;
     progress    @title: '{i18n>project.progress}';
+    status      @title: '{i18n>project.status}'  @Common.ValueListWithFixedValues;
     starDate    @title: '{i18n>project.starDate}';
     endDate     @title: '{i18n>project.endDate}';
 }
@@ -112,6 +113,11 @@ annotate call.project with  @odata.draft.enabled  @(UI: {
                 $Type: 'UI.DataField',
                 Value: endDate,
                 Label: '{i18n>project.endDate}'
+            },
+            {
+                $Type: 'UI.DataField',
+                Value: status_code,
+                Label: '{i18n>project.status}'
             }
         ]
     },
@@ -165,7 +171,7 @@ annotate call.project with  @odata.draft.enabled  @(UI: {
         },
         {
             $Type : 'UI.ReferenceFacet',
-            Target: 'objetive/@UI.LineItem#objetives',
+            Target: 'objective/@UI.LineItem#objetives',
             Label : '{i18n>project.label4}',
             ID    : 'ObjetiveInfo'
         },
@@ -174,7 +180,7 @@ annotate call.project with  @odata.draft.enabled  @(UI: {
 
 
 //terminar esto y hacer la tabla intermedia
-annotate call.objetive with {
+annotate call.objective with {
     project @(Common: {
         Text           : project.name,
         TextArrangement: #TextOnly,
@@ -196,7 +202,7 @@ annotate call.objetive with {
     })
 };
 
-annotate call.objetive with @(UI: {LineItem #objetives: [
+annotate call.objective with @(UI: {LineItem #objetives: [
     {
         $Type: 'UI.DataField',
         Value: name,
