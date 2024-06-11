@@ -24,10 +24,10 @@ module.exports = (srv) => {
     const employeeSCN = validateSCN(employee.socialSecurityNumber);
     //console.log(employeeEmail);
     if (employeeEmail === false) {
-      return req.error(400, bundle.getText("error1"));
+      return req.reject(400, bundle.getText("error1"));
     }
     if (employeeSCN === false) {
-      return req.error(400, bundle.getText("error3"));
+      return req.reject(400, bundle.getText("error3"));
     }
     const employeeOldInfo = await cds.transaction(req).run(
       SELECT("testService.employee").where({
@@ -44,7 +44,7 @@ module.exports = (srv) => {
         })
       );
       if (existingEmail.length) {
-        return req.error(400, bundle.getText("error2"));
+        return req.reject(400, bundle.getText("error2"));
       }
     }
     if (
@@ -57,7 +57,7 @@ module.exports = (srv) => {
         })
       );
       if (existingSCN.length) {
-        return req.error(400, bundle.getText("error4"));
+        return req.reject(400, bundle.getText("error4"));
       }
     }
   });
