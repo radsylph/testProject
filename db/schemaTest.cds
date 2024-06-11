@@ -136,6 +136,7 @@ entity objective : cuid, managed {
     progress    : Integer default 0;
     task        : Association to many task
                       on task.objective = $self;
+    completed   : Boolean default false;
 }
 
 entity workGroup : cuid, managed {
