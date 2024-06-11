@@ -91,18 +91,18 @@ annotate call.project with  @odata.draft.enabled  @(UI: {
                 Label: '{i18n>project.client}'
             },
             {
-                $Type                  : 'UI.DataField',
-                Value                  : progress,
-                Label                  : '{i18n>project.progress}',
-                ![@Common.FieldControl]: {$edmJson: {$If: [
+                $Type: 'UI.DataField',
+                Value: progress,
+                Label: '{i18n>project.progress}',
+            // ![@Common.FieldControl]: {$edmJson: {$If: [
 
-                    {$Eq: [
-                        {$Path: 'HasActiveEntity'},
-                        true
-                    ]},
-                    1,
-                    3
-                ]}},
+            //     {$Eq: [
+            //         {$Path: 'HasActiveEntity'},
+            //         true
+            //     ]},
+            //     1,
+            //     3
+            // ]}},
             },
             {
                 $Type: 'UI.DataField',
@@ -215,17 +215,27 @@ annotate call.objective with @(UI: {LineItem #objetives: [
         Label: '{i18n>objetive.description}'
     },
     {
-        $Type                  : 'UI.DataField',
-        Value                  : project_ID,
-        Label                  : '{i18n>project}',
-        ![@Common.FieldControl]: {$edmJson: {$If: [
+        $Type: 'UI.DataField',
+        Value: progress,
+        Label: '{i18n>objetive.progress}'
+    },
+    {
+        $Type: 'UI.DataField',
+        Value: status,
+        Label: '{i18n>objetive.status}'
+    },
+// {
+//     $Type                  : 'UI.DataField',
+//     Value                  : project_ID,
+//     Label                  : '{i18n>project}',
+//     ![@Common.FieldControl]: {$edmJson: {$If: [
 
-            {$Eq: [
-                {$Path: 'HasActiveEntity'},
-                true
-            ]},
-            1,
-            3
-        ]}},
-    }
+//         {$Eq: [
+//             {$Path: 'HasActiveEntity'},
+//             true
+//         ]},
+//         1,
+//         3
+//     ]}},
+// }
 ]});
