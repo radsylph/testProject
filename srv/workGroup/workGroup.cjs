@@ -53,22 +53,15 @@ module.exports = (srv) => {
           req.error(400, "el proyecto no ha sido encontrado");
           return;
         }
-
-        projectIds.add(project.project_ID);
-
         if (projectIds.has(project.project_ID)) {
           req.error(400, "el proyecto ya esta en el grupo");
           return;
         }
+        projectIds.add(project.project_ID);
       } else {
         req.error(400, "Undefined");
       }
     });
     await Promise.all([promise1, promise2]);
-  });
-
-  srv.after(["CREATE", "UPDATE"], "testService.workGroup", async (req) => {
-    console.log("after create event triggered for workGroup");
-    
   });
 };
