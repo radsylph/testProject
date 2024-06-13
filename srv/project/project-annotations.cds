@@ -91,18 +91,18 @@ annotate call.project with  @odata.draft.enabled  @(UI: {
                 Label: '{i18n>project.client}'
             },
             {
-                $Type: 'UI.DataField',
-                Value: progress,
-                Label: '{i18n>project.progress}',
-            // ![@Common.FieldControl]: {$edmJson: {$If: [
+                $Type                  : 'UI.DataField',
+                Value                  : progress,
+                Label                  : '{i18n>project.progress}',
+                ![@Common.FieldControl]: {$edmJson: {$If: [
 
-            //     {$Eq: [
-            //         {$Path: 'HasActiveEntity'},
-            //         true
-            //     ]},
-            //     1,
-            //     3
-            // ]}},
+                    {$Eq: [
+                        {$Path: 'HasActiveEntity'},
+                        true
+                    ]},
+                    1,
+                    3
+                ]}}, //quitar despues de las pruebas
             },
             {
                 $Type: 'UI.DataField',
@@ -117,7 +117,7 @@ annotate call.project with  @odata.draft.enabled  @(UI: {
             {
                 $Type: 'UI.DataField',
                 Value: status_code,
-                Label: '{i18n>project.status}'
+                Label: '{i18n>project.status}',
             }
         ]
     },
@@ -136,6 +136,21 @@ annotate call.project with  @odata.draft.enabled  @(UI: {
             $Type: 'UI.DataField',
             Value: client_ID,
             Label: '{i18n>project.client}'
+        },
+        // {
+        //     $Type: 'UI.DataField',
+        //     Value: starDate,
+        //     Label: '{i18n>project.startDate}'
+        // },
+        // {
+        //     $Type: 'UI.DataField',
+        //     Value: endDate,
+        //     Label: '{i18n>project.endDate}'
+        // },
+        {
+            $Type: 'UI.DataField',
+            Value: status_code,
+            Label: '{i18n>project.status}'
         },
         // {
         //     $Type: 'UI.DataField',
@@ -160,7 +175,6 @@ annotate call.project with  @odata.draft.enabled  @(UI: {
             Label        : '{i18n>project.groups}',
             ID           : 'WorkGroupInfo',
             ![@UI.Hidden]: {$edmJson: {$If: [
-
                 {$Eq: [
                     {$Path: 'HasActiveEntity'},
                     true
@@ -215,14 +229,33 @@ annotate call.objective with @(UI: {LineItem #objetives: [
         Label: '{i18n>objetive.description}'
     },
     {
-        $Type: 'UI.DataField',
-        Value: progress,
-        Label: '{i18n>objetive.progress}'
+        $Type                  : 'UI.DataField',
+        Value                  : progress,
+        Label                  : '{i18n>objetive.progress}',
+        ![@Common.FieldControl]: {$edmJson: {$If: [
+
+            {$Eq: [
+                {$Path: 'HasActiveEntity'},
+                true
+            ]},
+            1,
+            3
+        ]}},
+
     },
     {
-        $Type: 'UI.DataField',
-        Value: status,
-        Label: '{i18n>objetive.status}'
+        $Type                  : 'UI.DataField',
+        Value                  : status,
+        Label                  : '{i18n>objetive.status}',
+        ![@Common.FieldControl]: {$edmJson: {$If: [
+
+            {$Eq: [
+                {$Path: 'completed'},
+                true
+            ]},
+            1,
+            3
+        ]}},
     },
 // {
 //     $Type                  : 'UI.DataField',
