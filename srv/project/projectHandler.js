@@ -10,36 +10,34 @@ class projectHandler {
     const objectivesData = projectData.objective;
     let totalProgress = projectData.progress;
 
-    if (objectivesData !== undefined && objectivesData.length > 0) {
+    console.log("projectData: ", projectData);
+
+    if (projectData.progress === 100) {
+      projectData.status_code = "COM";
+      return;
+    }
+
+    if (objectivesData && objectivesData.length > 0) {
       for (const objective of objectivesData) {
-        if (objective.status) {
-          if (!objective.completed) {
-            objective.completed = true;
-            totalProgress += objective.progress;
-          } else {
-            totalProgress = Math.max(0, totalProgress - objective.progress);
-            objective.completed = false;
-          }
+        if (objective.status && !objective.completed) {
+          totalProgress += objective.progress;
+          objective.completed = true;
+        } else if (!objective.status && objective.completed) {
+          //totalProgress -= objective.progress;
+          //objective.completed = false;
         }
-      } //revisar esto despues
-      totalProgress = Math.min(totalProgress, 100);
+      }
       console.log("totalProgress: ", totalProgress);
+      totalProgress = Math.max(0, Math.min(100, totalProgress));
       projectData.progress = totalProgress;
     }
   }
 
-  async validateObjective(req, project, totalProgress) {
+  async validateObjective(req, bundle) {
+    const objectiveData = req.data;
     try {
-      console.log("Selected project: ", project);
-      const updatedProjectProgress = await cds
-        .transaction(req)
-        .run(
-          UPDATE("testService_project")
-            .set({ progress: totalProgress })
-            .where({ ID: project.ID })
-        );
-      console.log("updatedProjectProgress: ", updatedProjectProgress);
-      return updatedProjectProgress;
+      console.log("objectiveData: ", objectiveData);
+      req.error(400, "Error updating project progress");
     } catch (error) {
       console.error("Error updating project progress: ", error);
       throw error;
