@@ -152,6 +152,11 @@ annotate call.project with  @odata.draft.enabled  @(UI: {
             Value: status_code,
             Label: '{i18n>project.status}'
         },
+        {
+            $Type: 'UI.DataField',
+            Value: status_code,
+            Label: '{i18n>project.status}',
+        },
         // {
         //     $Type: 'UI.DataField',
         //     Value: workGroups_ID
@@ -261,14 +266,14 @@ annotate call.objective with @(UI: {LineItem #objetives: [
 //     $Type                  : 'UI.DataField',
 //     Value                  : project_ID,
 //     Label                  : '{i18n>project}',
-//     ![@Common.FieldControl]: {$edmJson: {$If: [
+// ![@Common.FieldControl]: {$edmJson: {$If: [
 
-//         {$Eq: [
-//             {$Path: 'HasActiveEntity'},
-//             true
-//         ]},
-//         1,
-//         3
-//     ]}},
+//     {$Eq: [
+//         {$Path: 'HasActiveEntity'},
+//         true
+//     ]},
+//     1,
+//     3
+// ]}},
 // }
 ]});
