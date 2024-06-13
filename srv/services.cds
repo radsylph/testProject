@@ -9,3 +9,20 @@ service testService @(path: '/testRoute') {
     entity workGroup_project  as projection on db.workGroup_project;
     entity objective          as projection on db.objective;
 }
+
+// annotate testService.project with @Aggregation.ApplySupported: {
+//     Transformations       : [
+//         'aggregate',
+//         'topcount',
+//         'bottomcount',
+//         'identity',
+//         'concat',
+//         'groupby',
+//         'filter',
+//         'search'
+//     ],
+//     Rollup                : #None,
+//     PropertyRestrictions  : true,
+//     GroupableProperties   : [],
+//     AggregatableProperties: [],
+// }; testear despues  https://learning.sap.com/learning-journeys/developing-an-sap-fiori-elements-app-based-on-a-cap-odata-v4-service/adding-a-chart-to-the-list-report_d228124b-1918-40be-b386-16d9e5af6897
