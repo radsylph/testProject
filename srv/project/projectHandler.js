@@ -7,15 +7,30 @@ class projectHandler {
 
   async validateProject(req, bundle) {
     const projectData = req.data;
+
+    if (projectData.starDate > projectData.endDate) {
+      return req.error(400, bundle.getText("error6"));
+    }
+
+    const existingClient = await cds.transaction(req).run(
+      SELECT("testService.client").where({
+        ID: projectData.client_ID,
+      })
+    );
+
+    if (!existingClient.length) {
+      return req.error(400, bundle.getText("error7"));
+    }
+  }
+
+  async reCalculateProgress(req, bundle) {}
+
+  async validateObjective(req, bundle) {
+    const projectData = req.data;
     const objectivesData = projectData.objective;
     let totalProgress = projectData.progress;
 
     console.log("projectData: ", projectData);
-
-    if (projectData.progress === 100) {
-      projectData.status_code = "COM";
-      return;
-    }
 
     if (objectivesData && objectivesData.length > 0) {
       for (const objective of objectivesData) {
@@ -27,20 +42,15 @@ class projectHandler {
           //objective.completed = false;
         }
       }
+
       console.log("totalProgress: ", totalProgress);
       totalProgress = Math.max(0, Math.min(100, totalProgress));
       projectData.progress = totalProgress;
-    }
-  }
 
-  async validateObjective(req, bundle) {
-    const objectiveData = req.data;
-    try {
-      console.log("objectiveData: ", objectiveData);
-      req.error(400, "Error updating project progress");
-    } catch (error) {
-      console.error("Error updating project progress: ", error);
-      throw error;
+      if (projectData.progress === 100) {
+        projectData.status_code = "COM";
+        return;
+      }
     }
   }
 }

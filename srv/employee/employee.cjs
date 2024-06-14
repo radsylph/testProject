@@ -26,9 +26,11 @@ module.exports = (srv) => {
     if (employeeEmail === false) {
       return req.reject(400, bundle.getText("error1"));
     }
+
     if (employeeSCN === false) {
       return req.reject(400, bundle.getText("error3"));
     }
+    
     const employeeOldInfo = await cds.transaction(req).run(
       SELECT("testService.employee").where({
         ID: employee.ID,
