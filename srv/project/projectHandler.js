@@ -21,6 +21,8 @@ class projectHandler {
     if (!existingClient.length) {
       return req.error(400, bundle.getText("error7"));
     }
+
+    projectData.Iscreated = true;
   }
 
   async reCalculateProgress(req, bundle) {}
