@@ -22,23 +22,23 @@ module.exports = (srv) => {
     const employee = req.data;
     const employeeEmail = validateEmail(employee.email);
     const employeeSCN = validateSCN(employee.socialSecurityNumber);
-    //console.log(employeeEmail);
+    console.log(employee);
     if (employeeEmail === false) {
-      return req.reject(400, bundle.getText("error1"));
+      req.reject(400, bundle.getText("error1"));
     }
 
     if (employeeSCN === false) {
-      return req.reject(400, bundle.getText("error3"));
+      req.reject(400, bundle.getText("error3"));
     }
-    
+
     const employeeOldInfo = await cds.transaction(req).run(
       SELECT("testService.employee").where({
         ID: employee.ID,
       })
     );
     //console.log(employeeOldInfo[0].email);
-    console.log(employee.email);
-    console.log(employeeOldInfo[0].email !== employee.email);
+    //console.log(employee.email);
+    //console.log(employeeOldInfo[0].email !== employee.email);
     if (employeeOldInfo[0] && employeeOldInfo[0].email !== employee.email) {
       const existingEmail = await cds.transaction(req).run(
         SELECT("testService.employee").where({
@@ -46,7 +46,7 @@ module.exports = (srv) => {
         })
       );
       if (existingEmail.length) {
-        return req.reject(400, bundle.getText("error2"));
+        req.reject(400, bundle.getText("error2"));
       }
     }
     if (
@@ -59,7 +59,7 @@ module.exports = (srv) => {
         })
       );
       if (existingSCN.length) {
-        return req.reject(400, bundle.getText("error4"));
+        req.reject(400, bundle.getText("error4"));
       }
     }
   });
