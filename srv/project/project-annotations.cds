@@ -102,7 +102,7 @@ annotate call.project with  @odata.draft.enabled  @(UI: {
                     ]},
                     1,
                     3
-                ]}}, //quitar despues de las pruebas
+                ]}},
             },
             {
                 $Type                  : 'UI.DataField',
@@ -183,13 +183,20 @@ annotate call.project with  @odata.draft.enabled  @(UI: {
             Label        : '{i18n>project.groups}',
             ID           : 'WorkGroupInfo',
             ![@UI.Hidden]: {$edmJson: {$If: [
-                {$Eq: [
-                    {$Path: 'HasActiveEntity'},
-                    true
+                {$Or: [
+                    {$Eq: [
+                        {$Path: 'HasActiveEntity'},
+                        true
+                    ]},
+                    {$Eq: [
+                        {$Path: 'Iscreated'},
+                        false
+                    ]},
                 ]},
                 true,
                 false
             ]}},
+
         },
         {
             $Type : 'UI.ReferenceFacet',
