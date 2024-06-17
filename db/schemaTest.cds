@@ -92,7 +92,7 @@ entity project : cuid, managed {
     starDate    : DateTime;
     status      : Association to project_status;
     endDate     : DateTime;
-
+    Iscreated   : Boolean default false;
 }
 
 
