@@ -68,10 +68,23 @@ annotate call.project with  @odata.draft.enabled  @(UI: {
             Value: '{i18n>project.label1}'
         }
     },
-    SelectionFields        : [client.name,
-                                           //project_leader.name
-                                           // workGroups.name
-                             ],
+    SelectionFields        : [client.name],
+
+    DataPoint              : {
+        $Type        : 'UI.DataPointType',
+        Value        : progress,
+        TargetValue  : 100,
+        Visualization: #Progress,
+    // Criticality  : {$edmJson: {$If: [
+    //     {$Gt: [
+    //         {Path: 'progress'},
+    //         100
+    //     ]},
+    //     #Positive,
+    //     #Negative
+    // ]}}
+    },
+
     FieldGroup #GeneralInfo: {
         $Type: 'UI.FieldGroupType',
         Data : [
@@ -91,9 +104,9 @@ annotate call.project with  @odata.draft.enabled  @(UI: {
                 Label: '{i18n>project.client}'
             },
             {
-                $Type                  : 'UI.DataField',
-                Value                  : progress,
+                $Type                  : 'UI.DataFieldForAnnotation',
                 Label                  : '{i18n>project.progress}',
+                Target                 : '@UI.DataPoint',
                 ![@Common.FieldControl]: {$edmJson: {$If: [
 
                     {$Eq: [
