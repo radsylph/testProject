@@ -70,19 +70,32 @@ annotate call.project with  @odata.draft.enabled  @(UI: {
     },
     SelectionFields        : [client.name],
 
-    DataPoint              : {
+    Chart #test2           : {
+        Title            : 'test',
+        $Type            : 'UI.ChartDefinitionType',
+        ChartType        : #Donut,
+        ![@UI.Importance]: #High,
+        MeasureAttributes: [{
+            $Type    : 'UI.ChartMeasureAttributeType',
+            DataPoint: '@UI.DataPoint#test',
+            Measure  : progress,
+        }, ],
+        Measures         : [progress],
+    },
+
+    DataPoint #test        : {
         $Type        : 'UI.DataPointType',
         Value        : progress,
         TargetValue  : 100,
-        Visualization: #Progress,
-    // Criticality  : {$edmJson: {$If: [
-    //     {$Gt: [
-    //         {Path: 'progress'},
-    //         100
-    //     ]},
-    //     #Positive,
-    //     #Negative
-    // ]}}
+        Visualization: #Donut
+
+    },
+
+    DataPoint #Progress    : {
+        $Type        : 'UI.DataPointType',
+        Value        : progress,
+        TargetValue  : 100,
+        Visualization: #Progress
     },
 
     FieldGroup #GeneralInfo: {
@@ -106,7 +119,7 @@ annotate call.project with  @odata.draft.enabled  @(UI: {
             {
                 $Type                  : 'UI.DataFieldForAnnotation',
                 Label                  : '{i18n>project.progress}',
-                Target                 : '@UI.DataPoint',
+                Target                 : '@UI.DataPoint#Progress',
                 ![@Common.FieldControl]: {$edmJson: {$If: [
 
                     {$Eq: [
@@ -157,30 +170,26 @@ annotate call.project with  @odata.draft.enabled  @(UI: {
             Value: name,
             Label: '{i18n>project.name}'
         },
-        {
-            $Type: 'UI.DataField',
-            Value: description,
-            Label: '{i18n>project.description}'
-        },
+        // {
+        //     $Type: 'UI.DataField',
+        //     Value: description,
+        //     Label: '{i18n>project.description}'
+        // },
         {
             $Type: 'UI.DataField',
             Value: client_ID,
             Label: '{i18n>project.client}'
         },
+        // {
+        //     $Type: 'UI.DataField',
+        //     Value: status_code,
+        //     Label: '{i18n>project.status}'
+        // },z
         {
-            $Type: 'UI.DataField',
-            Value: status_code,
-            Label: '{i18n>project.status}'
-        },
-        {
-            $Type: 'UI.DataField',
-            Value: status_code,
-            Label: '{i18n>project.status}',
-        },
-        {
-            $Type: 'UI.DataField',
-            Value: progress,
-            Label: '{i18n>project.progress}'
+            $Type      : 'UI.DataFieldForAnnotation',
+            Target     : '@UI.Chart#test2',
+            Criticality: progress,
+            Label      : '{i18n>project.progress}'
         }
     ],
     Facets                 : [
