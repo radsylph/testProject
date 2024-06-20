@@ -16,7 +16,6 @@ const validateSCN = (scn) => {
 
 module.exports = (srv) => {
   srv.before(["CREATE", "UPDATE"], "testService.employee", async (req) => {
-    //console.log("employee struct: ", req.data);
     const locale = req.user.locale;
     const bundle = textBundle.getTextBundle(locale);
     const employee = req.data;

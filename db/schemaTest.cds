@@ -85,6 +85,8 @@ entity project : cuid, managed {
     description : String default 'No description';
     client      : Association to client;
     progress    : Integer default 0;
+    testValue2  : Integer default 0;
+    testValue3  : Integer default 0;
     objective   : Composition of many objective
                       on objective.project = $self;
     workGroups  : Association to many workGroup_project
@@ -106,7 +108,6 @@ entity workGroup_project : cuid, managed {
     project   : Association to project;
 //task      : Association to task;
 }
-
 
 entity employee : person {
     socialSecurityNumber : String;

@@ -7,6 +7,8 @@ annotate call.project with {
     name        @title: '{i18n>project.name}';
     description @title: '{i18n>project.description}';
     client      @title: '{i18n>project.client}'  @Common.ValueListWithFixedValues: true;
+    testValue2  @title: 'testValue2';
+    testValue3  @title: 'testValue3';
     //workGroups  @title: 'Grupo de trabajo asignado'  @Common.ValueListWithFixedValues: true;
     progress    @title: '{i18n>project.progress}';
     status      @title: '{i18n>project.status}'  @Common.ValueListWithFixedValues;
@@ -77,18 +79,61 @@ annotate call.project with  @odata.draft.enabled  @(UI: {
         ![@UI.Importance]: #High,
         MeasureAttributes: [{
             $Type    : 'UI.ChartMeasureAttributeType',
-            DataPoint: '@UI.DataPoint#test',
+            DataPoint: '@UI.DataPoint#testDonut',
             Measure  : progress,
         }, ],
         Measures         : [progress],
     },
 
-    DataPoint #test        : {
+    Chart #Bullet          : {
+        Title            : 'test bullet',
+        $Type            : 'UI.ChartDefinitionType',
+        ChartType        : #Bullet,
+        ![@UI.Importance]: #High,
+        MeasureAttributes: [{
+            $Type    : 'UI.ChartMeasureAttributeType',
+            DataPoint: '@UI.DataPoint#testBullet',
+            Measure  : progress,
+            Role     : #Axis1,
+        }, ],
+        Measures         : [progress],
+    },
+
+    Chart #Area            : {
+        Title            : 'test area',
+        $Type            : 'UI.ChartDefinitionType',
+        ChartType        : #Area,
+        ![@UI.Importance]: #High,
+        Dimensions       : [testValue2],
+        Measures         : [
+            progress,
+            testValue3
+        ],
+        MeasureAttributes: [{
+            $Type    : 'UI.ChartMeasureAttributeType',
+            DataPoint: '@UI.DataPoint#testArea',
+            Measure  : progress,
+            Role     : #Axis1,
+        }, ],
+
+    },
+
+    DataPoint #testDonut   : {
         $Type        : 'UI.DataPointType',
         Value        : progress,
         TargetValue  : 100,
         Visualization: #Donut
+    },
 
+    DataPoint #testBullet  : {
+        $Type        : 'UI.DataPointType',
+        Title        : 'bulletCharm',
+        Value        : progress,
+        TargetValue  : 100,
+        ForecastValue: 50,
+        MinimumValue : 0,
+        MaximumValue : 1,
+        Visualization: #BulletChart,
     },
 
     DataPoint #Progress    : {
@@ -96,6 +141,20 @@ annotate call.project with  @odata.draft.enabled  @(UI: {
         Value        : progress,
         TargetValue  : 100,
         Visualization: #Progress
+    },
+
+    DataPoint #testArea    : {
+        $Type                 : 'UI.DataPointType',
+        Value                 : progress,
+        TargetValue           : 100,
+        CriticalityCalculation: {
+            ImprovementDirection   : #Maximize,
+            DeviationRangeHighValue: 100,
+            DeviationRangeLowValue : 0,
+            ToleranceRangeHighValue: 80,
+            ToleranceRangeLowValue : 20,
+        }
+
     },
 
     FieldGroup #GeneralInfo: {
@@ -115,6 +174,16 @@ annotate call.project with  @odata.draft.enabled  @(UI: {
                 $Type: 'UI.DataField',
                 Value: client_ID,
                 Label: '{i18n>project.client}'
+            },
+            {
+                $Type: 'UI.DataField',
+                Value: testValue2,
+                Label: '{i18n>testValue}'
+            },
+            {
+                $Type: 'UI.DataField',
+                Value: testValue3,
+                Label: '{i18n>testValue2}'
             },
             {
                 $Type                  : 'UI.DataFieldForAnnotation',
