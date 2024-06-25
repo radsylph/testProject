@@ -61,7 +61,7 @@ annotate call.workGroup_project with {
 }
 
 annotate call.project with  @odata.draft.enabled  @(UI: {
-    HeaderInfo             : {
+    HeaderInfo               : {
         $Type         : 'UI.HeaderInfoType',
         TypeName      : '{i18n>project}',
         TypeNamePlural: '{i18n>projects}',
@@ -70,9 +70,15 @@ annotate call.project with  @odata.draft.enabled  @(UI: {
             Value: '{i18n>project.label1}'
         }
     },
-    SelectionFields        : [client.name],
+    SelectionFields          : [client.name],
 
-    Chart #test2           : {
+    // HeaderFacets             : [{
+    //     $Type : 'UI.ReferenceFacet',
+    //     Label : 'test HeaderFacet',
+    //     Target: '@UI.DataPoint#Progress',
+    // }],
+
+    Chart #Donut_arial       : {
         Title            : 'test',
         $Type            : 'UI.ChartDefinitionType',
         ChartType        : #Donut,
@@ -85,7 +91,7 @@ annotate call.project with  @odata.draft.enabled  @(UI: {
         Measures         : [progress],
     },
 
-    Chart #Bullet          : {
+    Chart #Bullet            : {
         Title            : 'test bullet',
         $Type            : 'UI.ChartDefinitionType',
         ChartType        : #Bullet,
@@ -99,7 +105,7 @@ annotate call.project with  @odata.draft.enabled  @(UI: {
         Measures         : [progress],
     },
 
-    Chart #Area            : {
+    Chart #Area              : {
         Title            : 'test area',
         $Type            : 'UI.ChartDefinitionType',
         ChartType        : #Area,
@@ -118,14 +124,84 @@ annotate call.project with  @odata.draft.enabled  @(UI: {
 
     },
 
-    DataPoint #testDonut   : {
+    Chart #Line              : {
+        $Type            : 'UI.ChartDefinitionType',
+        Title            : 'test Line',
+        Description      : 'testing with line Chart',
+        ChartType        : #Line,
+        Measures         : [
+            testValue2,
+            testValue3
+        ],
+        Dimensions       : [
+            testValue2,
+            testValue3
+        ],
+        MeasureAttributes: [
+            {
+                $Type    : 'UI.ChartMeasureAttributeType',
+                Measure  : testValue2,
+                Role     : #Axis1,
+                DataPoint: '@UI.DataPoint#testLine1',
+            },
+            {
+                $Type    : 'UI.ChartMeasureAttributeType',
+                Measure  : testValue3,
+                Role     : #Axis2,
+                DataPoint: '@UI.DataPoint#testLine2',
+            },
+        ]
+    },
+
+    Chart #Stacked           : {
+        $Type            : 'UI.ChartDefinitionType',
+        Title            : 'test Stacked',
+        Description      : 'testing with Stacked Chart',
+        ChartType        : #BarStacked,
+        Measures         : [progress],
+        MeasureAttributes: [{
+            $Type    : 'UI.ChartMeasureAttributeType',
+            Measure  : progress,
+            Role     : #Axis1,
+            DataPoint: '@UI.DataPoint#testStacked',
+        }]
+    },
+
+    Chart #Harvey            : {
+        $Type            : 'UI.ChartDefinitionType',
+        Title            : 'test Harvey',
+        Description      : 'testing with Harvey Chart',
+        ChartType        : #Pie,
+        Measures         : [progress],
+        MeasureAttributes: [{
+            $Type    : 'UI.ChartMeasureAttributeType',
+            DataPoint: '@UI.DataPoint#testHarvey'
+        }]
+    },
+
+    Chart #Comparison        : {
+        $Type            : 'UI.ChartDefinitionType',
+        ChartType        : #Bar,
+        Description      : 'Comparison Chart',
+        Dimensions       : [progress],
+        MeasureAttributes: [{
+            $Type    : 'UI.ChartMeasureAttributeType',
+            Measure  : testValue2,
+            Role     : #Axis1,
+            DataPoint: '@UI.DataPoint#testComparison',
+        }],
+        Measures         : [testValue2],
+        Title            : 'test Comparison',
+    },
+
+    DataPoint #testDonut     : {
         $Type        : 'UI.DataPointType',
         Value        : progress,
         TargetValue  : 100,
         Visualization: #Donut
     },
 
-    DataPoint #testBullet  : {
+    DataPoint #testBullet    : {
         $Type        : 'UI.DataPointType',
         Title        : 'bulletCharm',
         Value        : progress,
@@ -136,14 +212,14 @@ annotate call.project with  @odata.draft.enabled  @(UI: {
         Visualization: #BulletChart,
     },
 
-    DataPoint #Progress    : {
+    DataPoint #Progress      : {
         $Type        : 'UI.DataPointType',
         Value        : progress,
         TargetValue  : 100,
         Visualization: #Progress
     },
 
-    DataPoint #testArea    : {
+    DataPoint #testArea      : {
         $Type                 : 'UI.DataPointType',
         Value                 : progress,
         TargetValue           : 100,
@@ -154,10 +230,54 @@ annotate call.project with  @odata.draft.enabled  @(UI: {
             ToleranceRangeHighValue: 80,
             ToleranceRangeLowValue : 20,
         }
-
     },
 
-    FieldGroup #GeneralInfo: {
+    DataPoint #testLine1     : {
+        Value        : testValue2,
+        Title        : 'testValue 1',
+        Description  : 'description of testValue 2',
+        TargetValue  : testValue2,
+        ForecastValue: testValue3,
+        MinimumValue : 0,
+        MaximumValue : 100,
+        Criticality  : progress // no ce si quitar
+    },
+
+    DataPoint #testLine2     : {
+        Value       : testValue3,
+        Title       : 'testValue 2',
+        Description : 'description of testValue 3',
+        MinimumValue: 0,
+        MaximumValue: 150,
+    },
+
+    DataPoint #testStacked   : {
+        $Type        : 'UI.DataPointType',
+        Value        : progress,
+        Title        : 'test Stacked',
+        Description  : 'testing with Stacked Chart',
+        TargetValue  : progress,
+        ForecastValue: testValue2,
+        MinimumValue : 0,
+        MaximumValue : 100,
+        Criticality  : progress
+    },
+
+    DataPoint #testHarvey    : {
+        $Type       : 'UI.DataPointType',
+        Value       : progress,
+        MaximumValue: testValue3,
+        Criticality : progress
+    },
+
+    DataPoint #testComparison: {
+        Value       : testValue2,
+        Title       : 'test Comparison',
+        MinimumValue: 0,
+        MaximumValue: 100,
+    },
+
+    FieldGroup #GeneralInfo  : {
         $Type: 'UI.FieldGroupType',
         Data : [
             {
@@ -189,6 +309,7 @@ annotate call.project with  @odata.draft.enabled  @(UI: {
                 $Type                  : 'UI.DataFieldForAnnotation',
                 Label                  : '{i18n>project.progress}',
                 Target                 : '@UI.DataPoint#Progress',
+                //Target                 : '@UI.Chart#Donut_arial',
                 ![@Common.FieldControl]: {$edmJson: {$If: [
 
                     {$Eq: [
@@ -233,35 +354,31 @@ annotate call.project with  @odata.draft.enabled  @(UI: {
             }
         ]
     },
-    LineItem               : [
+
+    LineItem                 : [
         {
             $Type: 'UI.DataField',
             Value: name,
             Label: '{i18n>project.name}'
         },
-        // {
-        //     $Type: 'UI.DataField',
-        //     Value: description,
-        //     Label: '{i18n>project.description}'
-        // },
         {
             $Type: 'UI.DataField',
             Value: client_ID,
             Label: '{i18n>project.client}'
         },
-        // {
-        //     $Type: 'UI.DataField',
-        //     Value: status_code,
-        //     Label: '{i18n>project.status}'
-        // },z
         {
             $Type      : 'UI.DataFieldForAnnotation',
-            Target     : '@UI.Chart#test2',
+            Target     : '@UI.Chart#Harvey',
             Criticality: progress,
             Label      : '{i18n>project.progress}'
-        }
+        },
+        {
+            $Type : 'UI.DataFieldForAnnotation',
+            Target: '@UI.DataPoint#testHarvey',
+            Label : '{i18n>project.progress}'
+        },
     ],
-    Facets                 : [
+    Facets                   : [
         {
             $Type : 'UI.ReferenceFacet',
             Target: '@UI.FieldGroup#GeneralInfo',
@@ -299,7 +416,6 @@ annotate call.project with  @odata.draft.enabled  @(UI: {
 });
 
 
-//terminar esto y hacer la tabla intermedia
 annotate call.objective with {
     project @(Common: {
         Text           : project.name,
@@ -363,18 +479,5 @@ annotate call.objective with @(UI: {LineItem #objetives: [
             3
         ]}},
     },
-// {
-//     $Type                  : 'UI.DataField',
-//     Value                  : project_ID,
-//     Label                  : '{i18n>project}',
-// ![@Common.FieldControl]: {$edmJson: {$If: [
 
-//     {$Eq: [
-//         {$Path: 'HasActiveEntity'},
-//         true
-//     ]},
-//     1,
-//     3
-// ]}},
-// }
 ]});
