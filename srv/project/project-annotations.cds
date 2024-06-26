@@ -14,7 +14,7 @@ annotate call.project with {
     status      @title: '{i18n>project.status}'  @Common.ValueListWithFixedValues;
     starDate    @title: '{i18n>project.starDate}';
     endDate     @title: '{i18n>project.endDate}';
-}
+};
 
 annotate call.project with {
     client @(Common: {
@@ -36,7 +36,7 @@ annotate call.project with {
             ]
         }
     })
-}
+};
 
 annotate call.workGroup_project with {
     workGroup @(Common: {
@@ -58,7 +58,7 @@ annotate call.workGroup_project with {
             ]
         }
     })
-}
+};
 
 annotate call.project with  @odata.draft.enabled  @(UI: {
     HeaderInfo               : {
