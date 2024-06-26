@@ -1,5 +1,6 @@
 using {com.test as db} from '../db/schemaTest';
 
+
 service testService @(path: '/testRoute') {
     entity employee           as projection on db.employee;
     entity client             as projection on db.client;
@@ -10,19 +11,41 @@ service testService @(path: '/testRoute') {
     entity objective          as projection on db.objective;
 }
 
-// annotate testService.project with @Aggregation.ApplySupported: {
-//     Transformations       : [
-//         'aggregate',
-//         'topcount',
-//         'bottomcount',
-//         'identity',
-//         'concat',
-//         'groupby',
-//         'filter',
-//         'search'
-//     ],
-//     Rollup                : #None,
-//     PropertyRestrictions  : true,
-//     GroupableProperties   : [],
-//     AggregatableProperties: [],
-// }; testear despues  https://learning.sap.com/learning-journeys/developing-an-sap-fiori-elements-app-based-on-a-cap-odata-v4-service/adding-a-chart-to-the-list-report_d228124b-1918-40be-b386-16d9e5af6897
+service libraryService @(path: '/libraryRoute') {
+    entity book as projection on db.book;
+}
+
+annotate libraryService.book with @(
+    Aggregation.ApplySupported              : {
+        Transformations       : [
+            'aggregate',
+            'topcount',
+            'bottomcount',
+            'identity',
+            'concat',
+            'groupby',
+            'filter',
+            'search'
+        ],
+        Rollup                : #None,
+        PropertyRestrictions  : true,
+        GroupableProperties   : [
+            ID,
+            category1,
+            category2,
+            title,
+            publishedAt
+        ],
+        AggregatableProperties: [{
+            $Type   : 'Aggregation.AggregatablePropertyType',
+            Property: stock
+        }, ],
+    },
+    Analytics.AggregatedProperty #totalStock: {
+        $Type               : 'Analytics.AggregatedPropertyType',
+        AggregatableProperty: stock,
+        AggregationMethod   : 'sum',
+        Name                : 'totalStock',
+        ![@Common.Label]    : 'Total Stock'
+    }
+);
