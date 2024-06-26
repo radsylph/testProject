@@ -9,7 +9,7 @@ annotate call.book with {
 }
 
 annotate call.book with  @odata.draft.enabled  @(UI: {
-    HeaderInfo         : {
+    HeaderInfo          : {
         $Type         : 'UI.HeaderInfoType',
         TypeName      : '{i18n>book}',
         TypeNamePlural: '{i18n>books}',
@@ -18,34 +18,97 @@ annotate call.book with  @odata.draft.enabled  @(UI: {
             Value: '{i18n>book.title}'
         }
     },
-    SelectionFields    : [
+    SelectionFields     : [
         category1,
         category2,
         publishedAt
     ],
 
-    Chart #category1   : {
+    Chart #category1    : {
         $Type          : 'UI.ChartDefinitionType',
         ChartType      : #Bar,
         Dimensions     : [category1],
         DynamicMeasures: [ ![@Analytics.AggregatedProperty#totalStock] ],
     },
 
-    PresentationVariant: {
+    PresentationVariant : {
         $Type         : 'UI.PresentationVariantType',
         Visualizations: [ ![@UI.Chart#category1] ]
 
     },
 
-    LineItem           : [
+    LineItem            : [
         {
             $Type: 'UI.DataField',
-            Value: ID
+            Value: ID,
         },
         {
             $Type: 'UI.DataField',
-            Value: category1
+            Value: title,
         },
+        {
+            $Type: 'UI.DataField',
+            Value: category1,
+        },
+        {
+            $Type: 'UI.DataField',
+            Value: category2,
+        },
+        {
+            $Type: 'UI.DataField',
+            Value: stock,
+        },
+        {
+            $Type: 'UI.DataField',
+            Value: publishedAt,
+        },
+    ],
+
+    FieldGroup #bookInfo: {
+        $Type: 'UI.FieldGroupType',
+        Data : [
+            {
+                $Type: 'UI.DataField',
+                Value: title,
+            },
+            {
+                $Type: 'UI.DataField',
+                Value: category1,
+            },
+            {
+                $Type: 'UI.DataField',
+                Value: category2,
+            },
+            {
+                $Type: 'UI.DataField',
+                Value: stock,
+            },
+            {
+                $Type: 'UI.DataField',
+                Value: publishedAt,
+            }
+        ]
+    },
+
+    Facets              : [
+        {
+            $Type : 'UI.ReferenceFacet',
+            Target: '@UI.LineItem',
+            Label : 'test',
+            ID    : 'LineItem'
+        },
+        {
+            $Type : 'UI.ReferenceFacet',
+            Target: '@UI.FieldGroup#bookInfo',
+            Label : 'fieldGroup',
+            ID    : 'FieldGroup'
+        },
+        {
+            $Type : 'UI.ReferenceFacet',
+            Target: '@UI.PresentationVariant',
+            Label : 'presentationVariant',
+            ID    : 'PresentationVariant'
+        }
     ],
 
 });
