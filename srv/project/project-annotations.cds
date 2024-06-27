@@ -368,7 +368,7 @@ annotate call.project with  @odata.draft.enabled  @(UI: {
         },
         {
             $Type      : 'UI.DataFieldForAnnotation',
-            Target     : '@UI.Chart#Harvey',
+            Target     : '@UI.Chart#Stacked',
             Criticality: progress,
             Label      : '{i18n>project.progress}'
         },

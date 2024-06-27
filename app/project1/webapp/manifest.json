@@ -1,161 +1,182 @@
 {
-  "_version": "1.59.0",
-  "sap.app": {
-    "id": "project1",
-    "type": "application",
-    "i18n": "i18n/i18n.properties",
-    "applicationVersion": {
-      "version": "0.0.1"
-    },
-    "title": "{{appTitle}}",
-    "description": "{{appDescription}}",
-    "resources": "resources.json",
-    "sourceTemplate": {
-      "id": "@sap/generator-fiori:alp",
-      "version": "1.13.3",
-      "toolsId": "66c89981-9ec6-49e6-8f1b-48bf8dbef495"
-    },
-    "dataSources": {
-      "mainService": {
-        "uri": "/libraryRoute/",
-        "type": "OData",
-        "settings": {
-          "annotations": [],
-          "odataVersion": "4.0"
-        }
-      }
-    }
-  },
-  "sap.ui": {
-    "technology": "UI5",
-    "icons": {
-      "icon": "",
-      "favIcon": "",
-      "phone": "",
-      "phone@2": "",
-      "tablet": "",
-      "tablet@2": ""
-    },
-    "deviceTypes": {
-      "desktop": true,
-      "tablet": true,
-      "phone": true
-    }
-  },
-  "sap.ui5": {
-    "flexEnabled": true,
-    "dependencies": {
-      "minUI5Version": "1.125.1",
-      "libs": {
-        "sap.m": {},
-        "sap.ui.core": {},
-        "sap.ushell": {},
-        "sap.fe.templates": {}
-      }
-    },
-    "contentDensities": {
-      "compact": true,
-      "cozy": true
-    },
-    "models": {
-      "i18n": {
-        "type": "sap.ui.model.resource.ResourceModel",
-        "settings": {
-          "bundleName": "project1.i18n.i18n"
-        }
-      },
-      "": {
-        "dataSource": "mainService",
-        "preload": true,
-        "settings": {
-          "synchronizationMode": "None",
-          "operationMode": "Server",
-          "autoExpandSelect": true,
-          "earlyRequests": true
-        }
-      },
-      "@i18n": {
-        "type": "sap.ui.model.resource.ResourceModel",
-        "uri": "i18n/i18n.properties"
-      }
-    },
-    "resources": {
-      "css": []
-    },
-    "routing": {
-      "config": {},
-      "routes": [
-        {
-          "pattern": ":?query:",
-          "name": "bookList",
-          "target": "bookList"
-        },
-        {
-          "pattern": "book({key}):?query:",
-          "name": "bookObjectPage",
-          "target": "bookObjectPage"
-        }
-      ],
-      "targets": {
-        "bookList": {
-          "type": "Component",
-          "id": "bookList",
-          "name": "sap.fe.templates.ListReport",
-          "options": {
-            "settings": {
-              "contextPath": "/book",
-              "variantManagement": "Page",
-              "navigation": {
-                "book": {
-                  "detail": {
-                    "route": "bookObjectPage"
-                  }
-                }
-              },
-              "controlConfiguration": {
-                "@com.sap.vocabularies.UI.v1.LineItem": {
-                  "tableSettings": {
-                    "type": "AnalyticalTable",
-                    "selectionMode": "None"
-                  }
-                }
-              },
-              "views": {
-                "paths": [
-                  {
-                    "primary": [
-                      {
-                        "annotationPath": "com.sap.vocabularies.UI.v1.PresentationVariant"
-                      }
-                    ],
-                    "secondary": [
-                      {
-                        "annotationPath": "com.sap.vocabularies.UI.v1.LineItem"
-                      }
-                    ],
-                    "defaultPath": "both"
-                  }
-                ]
-              }
-            }
-          }
-        },
-        "bookObjectPage": {
-          "type": "Component",
-          "id": "bookObjectPage",
-          "name": "sap.fe.templates.ObjectPage",
-          "options": {
-            "settings": {
-              "editableHeaderContent": false,
-              "contextPath": "/book"
-            }
-          }
-        }
-      }
-    }
-  },
-  "sap.fiori": {
-    "registrationIds": [],
-    "archeType": "analytical"
-  }
+	"_version": "1.59.0",
+	"sap.app": {
+		"id": "project1",
+		"type": "application",
+		"i18n": "i18n/i18n.properties",
+		"applicationVersion": {
+			"version": "0.0.1"
+		},
+		"title": "{{appTitle}}",
+		"description": "{{appDescription}}",
+		"resources": "resources.json",
+		"sourceTemplate": {
+			"id": "@sap/generator-fiori:alp",
+			"version": "1.13.3",
+			"toolsId": "66c89981-9ec6-49e6-8f1b-48bf8dbef495"
+		},
+		"dataSources": {
+			"mainService": {
+				"uri": "/libraryRoute/",
+				"type": "OData",
+				"settings": {
+					"annotations": [],
+					"odataVersion": "4.0"
+				}
+			}
+		}
+	},
+	"sap.ui": {
+		"technology": "UI5",
+		"icons": {
+			"icon": "",
+			"favIcon": "",
+			"phone": "",
+			"phone@2": "",
+			"tablet": "",
+			"tablet@2": ""
+		},
+		"deviceTypes": {
+			"desktop": true,
+			"tablet": true,
+			"phone": true
+		}
+	},
+	"sap.ui5": {
+		"flexEnabled": true,
+		"dependencies": {
+			"minUI5Version": "1.125.1",
+			"libs": {
+				"sap.m": {},
+				"sap.ui.core": {},
+				"sap.ushell": {},
+				"sap.fe.templates": {}
+			}
+		},
+		"contentDensities": {
+			"compact": true,
+			"cozy": true
+		},
+		"models": {
+			"i18n": {
+				"type": "sap.ui.model.resource.ResourceModel",
+				"settings": {
+					"bundleName": "project1.i18n.i18n"
+				}
+			},
+			"": {
+				"dataSource": "mainService",
+				"preload": true,
+				"settings": {
+					"synchronizationMode": "None",
+					"operationMode": "Server",
+					"autoExpandSelect": true,
+					"earlyRequests": true
+				}
+			},
+			"@i18n": {
+				"type": "sap.ui.model.resource.ResourceModel",
+				"uri": "i18n/i18n.properties"
+			}
+		},
+		"resources": {
+			"css": []
+		},
+		"routing": {
+			"config": {},
+			"routes": [
+				{
+					"pattern": ":?query:",
+					"name": "bookList",
+					"target": "bookList"
+				},
+				{
+					"pattern": "book({key}):?query:",
+					"name": "bookObjectPage",
+					"target": "bookObjectPage"
+				}
+			],
+			"targets": {
+				"bookList": {
+					"type": "Component",
+					"id": "bookList",
+					"name": "sap.fe.templates.ListReport",
+					"options": {
+						"settings": {
+							"contextPath": "/book",
+							"variantManagement": "Page",
+							"navigation": {
+								"book": {
+									"detail": {
+										"route": "bookObjectPage"
+									}
+								}
+							},
+							"controlConfiguration": {
+								"@com.sap.vocabularies.UI.v1.LineItem": {
+									"tableSettings": {
+										"type": "ResponsiveTable",
+										"selectionMode": "None"
+									}
+								},
+								"@com.sap.vocabularies.UI.v1.SelectionFields": {
+									"layout": "CompactVisual",
+									"initialLayout": "Visual",
+									"filterFields": {
+										"category1": {
+											"visualFilter": {
+												"valueList": "com.sap.vocabularies.Common.v1.ValueList#vlCategory1"
+											}
+										},
+										"category2": {
+											"visualFilter": {
+												"valueList": "com.sap.vocabularies.Common.v1.ValueList#vlCategory2"
+											}
+										},
+										"publishedAt": {
+											"visualFilter": {
+												"valueList": "com.sap.vocabularies.Common.v1.ValueList#vlPublishedAt"
+											}
+										}
+									}
+								}
+							},
+							"views": {
+								"paths": [
+									{
+										"primary": [
+											{
+												"annotationPath": "com.sap.vocabularies.UI.v1.PresentationVariant"
+											}
+										],
+										"secondary": [
+											{
+												"annotationPath": "com.sap.vocabularies.UI.v1.LineItem"
+											}
+										],
+										"defaultPath": "both"
+									}
+								]
+							}
+						}
+					}
+				},
+				"bookObjectPage": {
+					"type": "Component",
+					"id": "bookObjectPage",
+					"name": "sap.fe.templates.ObjectPage",
+					"options": {
+						"settings": {
+							"editableHeaderContent": false,
+							"contextPath": "/book"
+						}
+					}
+				}
+			}
+		}
+	},
+	"sap.fiori": {
+		"registrationIds": [],
+		"archeType": "analytical"
+	}
 }

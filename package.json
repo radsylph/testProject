@@ -30,7 +30,7 @@
     "db:compose": "docker-compose -f pg.yml up -d",
     "docker:init": "concurrently \"npm run db:compose\" \"npm run initial\"",
     "initial": "concurrently \"npm run data:add\" \"npm run db:deploy\"",
-    "data:add": "cds add data",
+    "db:data": "cds add data",
     "watch-project1": "cds watch --open project1/webapp/index.html?sap-ui-xx-viewCache=false"
   },
   "sapux": [

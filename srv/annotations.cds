@@ -6,3 +6,4 @@ using from './global-annotations';
 using from './workGroup/wxp/wxp-annotations';
 using from './objective/task/task-annotations';
 using from './book/book-annotations';
+using from './book/library(Test)/librarian-annotations';

@@ -9,6 +9,6 @@ console.log("Initializing custom handlers");
 module.exports = async (srv) => {
   await workGroup(srv);
   await employee(srv);
-  await project(srv);
+  //await project(srv);
   await objective(srv);
 };
