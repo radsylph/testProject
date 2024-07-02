@@ -63,17 +63,7 @@ entity project_status : CodeList {
 }
 
 //creo mi entidad, mi modelo de la base de datos y mi base para las demas entidades que sean una persona
-entity person : cuid, managed {
-    name              : String;
-    lastName          : String;
-    age               : Integer;
-    email             : String;
-    genre             : Association to genre;
-    cellphone         : String;
-    principal_address : Address;
-//workGroup         : Association to workGroup; //test para el caso de Association #3
 
-}
 
 //@cds.autoexpose
 entity client : person {
@@ -109,8 +99,27 @@ entity workGroup_project : cuid, managed {
 //task      : Association to task;
 }
 
+entity person : cuid, managed {
+    name              : String;
+    lastName          : String;
+    age               : Integer;
+    email             : String;
+    genre             : Association to genre;
+    cellphone         : String;
+    principal_address : Address;
+//workGroup         : Association to workGroup; //test para el caso de Association #3
+}
+
+@assert.unique: {
+    SCN: [
+    socialSecurityNumber,
+],
+    email: [
+        email,
+    ],
+ }
 entity employee : person {
-    socialSecurityNumber : String;
+    socialSecurityNumber : String @assert.unique;
     position             : Association to position;
     rank                 : Association to rank;
     salary               : Integer;
@@ -118,7 +127,6 @@ entity employee : person {
     workGroups           : Association to many workGroup_employee
                                on workGroups.employee = $self; //test para el caso de Association #3
 }
-
 //despues
 
 entity task : cuid, managed {

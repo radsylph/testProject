@@ -36,10 +36,16 @@ annotate libraryService.book with @(
             title,
             publishedAt
         ],
-        AggregatableProperties: [{
-            $Type   : 'Aggregation.AggregatablePropertyType',
-            Property: stock
-        }, ],
+        AggregatableProperties: [
+            {
+                $Type   : 'Aggregation.AggregatablePropertyType',
+                Property: stock
+            },
+            {
+                $Type   : 'Aggregation.AggregatablePropertyType',
+                Property: publishedAt
+            },
+        ],
     },
     Analytics.AggregatedProperty #totalStock: {
         $Type               : 'Analytics.AggregatedPropertyType',
@@ -47,5 +53,14 @@ annotate libraryService.book with @(
         AggregationMethod   : 'sum',
         Name                : 'totalStock',
         ![@Common.Label]    : 'Total Stock'
+    },
+
+    Analytics.AggregatedProperty #Dates     : { //test
+        $Type               : 'Analytics.AggregatedPropertyType',
+        AggregatableProperty: publishedAt,
+        AggregationMethod   : 'countdistinct',
+        Name                : 'testDate',
+        ![@Common.Label]    : 'Test Date',
     }
+
 );

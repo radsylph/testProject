@@ -124,6 +124,7 @@
 									"initialLayout": "Visual",
 									"filterFields": {
 										"category1": {
+											"availability": "adaptation",
 											"visualFilter": {
 												"valueList": "com.sap.vocabularies.Common.v1.ValueList#vlCategory1"
 											}
@@ -139,6 +140,13 @@
 											}
 										}
 									}
+								}
+							},
+							"keyPerformanceIndicators": {
+								"kpi1": {
+									"entitySet": "book",
+									"qualifier": "myKPI1",
+									"filterable": true
 								}
 							},
 							"views": {

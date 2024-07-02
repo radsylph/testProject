@@ -6,6 +6,18 @@ class projectHandler {
   }
 
   async validateProject(req, bundle) {
+    const emailRegex =
+      /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(\.[a-zAZ0-9-]+)*$/;
+
+    const validateEmail = (email) => {
+      return emailRegex.test(email);
+    };
+
+    const SCNRegex = /^[0-9]{3}-[0-9]{2}-[0-9]{4}$/;
+
+    const validateSCN = (scn) => {
+      return SCNRegex.test(scn);
+    };
     const projectData = req.data;
 
     if (projectData.starDate > projectData.endDate) {
