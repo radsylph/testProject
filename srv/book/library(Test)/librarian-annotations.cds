@@ -9,15 +9,16 @@ annotate call.book with {
     publishedAt @title: '{i18n>book.publishedAt}';
 };
 
-annotate call.book with  @odata.draft.enabled  @( // chart principal
+annotate call.book with  @odata.draft.enabled  @( // Smart Chart
 
-    SelectionFields       : [
+    SelectionFields                : [
         title,
         category1,
-        category2
+        category2,
+        publishedAt
     ],
 
-    UI.Chart #primary     : {
+    UI.Chart #primary              : {
         $Type              : 'UI.ChartDefinitionType',
         Title              : 'Stock',
         ChartType          : #Column,
@@ -46,10 +47,53 @@ annotate call.book with  @odata.draft.enabled  @( // chart principal
             Role          : #Axis1
         }]
     },
-    UI.PresentationVariant: {
+    UI.PresentationVariant         : {
         $Type         : 'UI.PresentationVariantType',
         Visualizations: ['@UI.Chart#primary']
+    },
+
+    UI.SelectionVariant            : {
+        Parameters   : [{
+            $Type        : 'UI.Parameter',
+            PropertyName : 'category1',
+            PropertyValue: category1
+        },
+        // {
+        //     $Type        : 'UI.Parameter',
+        //     PropertyName : category2,
+        //     PropertyValue: 'test'
+        // }
+        ],
+        SelectOptions: [
+            {
+                $Type       : 'UI.SelectOptionType',
+                PropertyName: category1,
+                Ranges      : [{
+                    $Type : 'UI.SelectionRangeType',
+                    Sign  : #E,
+                    Option: #EQ,
+                    Low   : 'test'
+                }]
+            },
+            {
+                $Type       : 'UI.SelectOptionType',
+                PropertyName: category2,
+                Ranges      : [{
+                    $Type : 'UI.SelectionRangeType',
+                    Sign  : #E,
+                    Option: #EQ,
+                    Low   : 'test'
+                }]
+            }
+        ]
+    },
+
+    UI.SelectionPresentationVariant: {
+        Text               : 'test SelectionPresentationVariant',
+        SelectionVariant   : ![@UI.SelectionVariant],
+        PresentationVariant: ![@UI.PresentationVariant]
     }
+
 );
 
 annotate call.book with @( //visual filters for category 1
@@ -127,7 +171,7 @@ annotate call.book with @(
     }
 }
 
-annotate call.book with @(
+annotate call.book with @( //KPI thign IDK
     Aggregation.CustomAggregate #stock: 'Edm.Decimal',
     Common.SemanticKey                : [ID],
 ) {
