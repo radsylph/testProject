@@ -9,6 +9,13 @@ service testService @(path: '/testRoute') {
     entity workGroup_employee as projection on db.workGroup_employee;
     entity workGroup_project  as projection on db.workGroup_project;
     entity objective          as projection on db.objective;
+
+}
+
+service overViewService @(path: '/overviewRoute') {
+    entity salesOrder       as projection on db.salesOrderType;
+    entity salesHistory     as projection on db.SalesHistoryType;
+    entity salesPerSupplier as projection on db.SalesPerSupplierType;
 }
 
 service libraryService @(path: '/libraryRoute') {
@@ -62,5 +69,4 @@ annotate libraryService.book with @(
         Name                : 'testDate',
         ![@Common.Label]    : 'Test Date',
     }
-
 );

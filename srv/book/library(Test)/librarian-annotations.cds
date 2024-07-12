@@ -11,14 +11,44 @@ annotate call.book with {
 
 annotate call.book with  @odata.draft.enabled  @( // Smart Chart
 
-    SelectionFields                : [
+    SelectionFields                  : [
         title,
         category1,
         category2,
         publishedAt
     ],
 
-    UI.Chart #primary              : {
+    UI.Chart #donut                  : {
+        $Type              : 'UI.ChartDefinitionType',
+        ChartType          : #Donut,
+        Description        : 'Donut Chart',
+        Measures           : [stock],
+        MeasureAttributes  : [{
+            $Type    : 'UI.ChartMeasureAttributeType',
+            Measure  : stock,
+            Role     : #Axis1,
+            DataPoint: '@UI.DataPoint#donutDatapoint'
+        }],
+        Dimensions         : [category1],
+        DimensionAttributes: [{
+            $Type    : 'UI.ChartDimensionAttributeType',
+            Dimension: category1,
+            Role     : #Category
+        }]
+    },
+
+    UI.PresentationVariant #donutPrev: {
+        $Type         : 'UI.PresentationVariantType',
+        Visualizations: ['@UI.Chart#donut'],
+    },
+
+    UI.DataPoint #donutDatapoint     : {
+        $Type: 'UI.DataPointType',
+        Value: stock,
+
+    },
+
+    UI.Chart #primary                : {
         $Type              : 'UI.ChartDefinitionType',
         Title              : 'Stock',
         ChartType          : #Column,
@@ -47,53 +77,14 @@ annotate call.book with  @odata.draft.enabled  @( // Smart Chart
             Role          : #Axis1
         }]
     },
-    UI.PresentationVariant         : {
+    UI.PresentationVariant           : {
         $Type         : 'UI.PresentationVariantType',
         Visualizations: ['@UI.Chart#primary']
     },
-
-    UI.SelectionVariant            : {
-        Parameters   : [{
-            $Type        : 'UI.Parameter',
-            PropertyName : 'category1',
-            PropertyValue: category1
-        },
-        // {
-        //     $Type        : 'UI.Parameter',
-        //     PropertyName : category2,
-        //     PropertyValue: 'test'
-        // }
-        ],
-        SelectOptions: [
-            {
-                $Type       : 'UI.SelectOptionType',
-                PropertyName: category1,
-                Ranges      : [{
-                    $Type : 'UI.SelectionRangeType',
-                    Sign  : #E,
-                    Option: #EQ,
-                    Low   : 'test'
-                }]
-            },
-            {
-                $Type       : 'UI.SelectOptionType',
-                PropertyName: category2,
-                Ranges      : [{
-                    $Type : 'UI.SelectionRangeType',
-                    Sign  : #E,
-                    Option: #EQ,
-                    Low   : 'test'
-                }]
-            }
-        ]
-    },
-
-    UI.SelectionPresentationVariant: {
-        Text               : 'test SelectionPresentationVariant',
-        SelectionVariant   : ![@UI.SelectionVariant],
-        PresentationVariant: ![@UI.PresentationVariant]
-    }
-
+    UI.Identification #testOverView  : [{
+        $Type: 'UI.DataField',
+        Value: stock
+    }]
 );
 
 annotate call.book with @( //visual filters for category 1
@@ -145,6 +136,7 @@ annotate call.book with @( //visual filters for category 2
         PresentationVariantQualifier: 'prevCategory2'
     }
 }
+
 
 annotate call.book with @(
     UI.Chart #quaternary                   : {
@@ -232,7 +224,7 @@ annotate call.book with @( //KPI
         DataPoint       : {
             Value      : stock,
             Title      : 'TEST',
-            Description: '{i18n>Numero de Examenes}',
+            Description: '{i18n>Stock}',
         // CriticalityCalculation: {
         //     ImprovementDirection   : #Maximize,
         //     AcceptanceRangeLowValue: 1000000000, //valor minimo Aceptable (verde)

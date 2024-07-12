@@ -1,11 +1,9 @@
 {
-  // uncomment entries once all libraries have been installed via 'npm install'
-  "eslint.validate": [
-    // "cds",
-    // "csn",
-    // "csv",
-    // "csv (semicolon)",
-    // "tab",
-    // "tsv"
-  ]
+	// uncomment entries once all libraries have been installed via 'npm install'
+	"eslint.validate": ["cds", "csn", "csv", "csv (semicolon)", "tab", "tsv"],
+	"workbench.editor.customLabels.enabled": true,
+	"workbench.editor.customLabels.patterns": {
+		"**/project2/**": "${filename}.${extname} - project 2",
+		"**/*.cds": "${filename}.${extname} - ${dirname}"
+	}
 }

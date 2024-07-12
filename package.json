@@ -6,6 +6,7 @@
 	"license": "UNLICENSED",
 	"private": true,
 	"dependencies": {
+		"@cap-js-community/odata-v2-adapter": "^1.12.12",
 		"@cap-js/postgres": "^1.8.0",
 		"@cap-js/sqlite": "^1.7.1",
 		"@sap/cds": "^7",
@@ -16,7 +17,7 @@
 	},
 	"devDependencies": {
 		"@sap/eslint-plugin-cds": "^3",
-		"@sap/ux-specification": "^1.120.13",
+		"@sap/ux-specification": "^1.120.14",
 		"eslint": "^9"
 	},
 	"scripts": {
@@ -31,7 +32,9 @@
 		"docker:init": "concurrently \"npm run db:compose\" \"npm run initial\"",
 		"initial": "concurrently \"npm run db:data\" \"npm run db:deploy\"",
 		"db:data": "cds add data",
-		"watch-project1": "cds watch --open project1/webapp/index.html?sap-ui-xx-viewCache=false"
+		"watch-project1": "cds watch --open project1/webapp/index.html?sap-ui-xx-viewCache=false",
+		"watch-project2": "cds watch --open project2/webapp/index.html?sap-ui-xx-viewCache=false",
+		"watch-project3": "cds watch --open project3/webapp/index.html?sap-ui-xx-viewCache=false"
 	},
-	"sapux": ["app/project1"]
+	"sapux": ["app/project1", "app/project2", "app/project3"]
 }

@@ -1,0 +1,136 @@
+{
+	"_version": "1.59.0",
+	"sap.app": {
+		"id": "project3",
+		"type": "application",
+		"i18n": "i18n/i18n.properties",
+		"applicationVersion": {
+			"version": "0.0.1"
+		},
+		"title": "{{appTitle}}",
+		"description": "{{appDescription}}",
+		"resources": "resources.json",
+		"sourceTemplate": {
+			"id": "@sap/generator-fiori:ovp",
+			"version": "1.14.1",
+			"toolsId": "742d0e79-7551-4f9f-abb9-549b06509f6f"
+		},
+		"dataSources": {
+			"mainService": {
+				"uri": "/libraryRoute/",
+				"type": "OData",
+				"settings": {
+					"annotations": [],
+					"odataVersion": "4.0"
+				}
+			}
+		}
+	},
+	"sap.ui": {
+		"technology": "UI5",
+		"icons": {
+			"icon": "",
+			"favIcon": "",
+			"phone": "",
+			"phone@2": "",
+			"tablet": "",
+			"tablet@2": ""
+		},
+		"deviceTypes": {
+			"desktop": true,
+			"tablet": true,
+			"phone": true
+		}
+	},
+	"sap.ui5": {
+		"flexEnabled": true,
+		"dependencies": {
+			"minUI5Version": "1.125.1",
+			"libs": {
+				"sap.m": {},
+				"sap.ui.core": {},
+				"sap.ushell": {},
+				"sap.fe.templates": {},
+				"sap.ovp": {},
+				"sap.ui.rta": {},
+				"sap.ui.layout": {}
+			}
+		},
+		"contentDensities": {
+			"compact": true,
+			"cozy": true
+		},
+		"models": {
+			"i18n": {
+				"type": "sap.ui.model.resource.ResourceModel",
+				"settings": {
+					"bundleName": "project3.i18n.i18n"
+				}
+			},
+			"mainModel": {
+				"dataSource": "mainService",
+				"preload": true,
+				"settings": {
+					"operationMode": "Server",
+					"autoExpandSelect": true,
+					"earlyRequests": true
+				}
+			},
+			"@i18n": {
+				"type": "sap.ui.model.resource.ResourceModel",
+				"uri": "i18n/i18n.properties"
+			}
+		},
+		"resources": {
+			"css": []
+		},
+		"routing": {
+			"config": {},
+			"routes": [],
+			"targets": {}
+		}
+	},
+	"sap.ovp": {
+		"globalFilterModel": "mainModel",
+		"globalFilterEntityType": "book",
+		"containerLayout": "resizable",
+		"enableLiveFilter": false,
+		"considerAnalyticalParameters": false,
+		"cards": {
+			"testCard": {
+				"model": "mainModel",
+				"template": "sap.ovp.cards.v4.charts.analytical",
+				"settings": {
+					"title": "{{titulo}}",
+					"subTitle": "{{subtitulo}}",
+					"entitySet": "book",
+					"valueSelectionInfo": "{{REPLACE_WITH_VALUE_SELECTION_INFO}}",
+					"identificationAnnotationPath": "com.sap.vocabularies.UI.v1.Identification#testOverView",
+					"presentationAnnotationPath": "com.sap.vocabularies.UI.v1.PresentationVariant#prevCategory1",
+					"chartAnnotationPath": "com.sap.vocabularies.UI.v1.Chart#secondary",
+					"dataPointAnnotationPath": "com.sap.vocabularies.UI.v1.DataPoint#donutDatapoint"
+				}
+			},
+			"testCard2": {
+				"model": "mainModel",
+				"template": "sap.ovp.cards.v4.charts.analytical",
+				"settings": {
+					"title": "test",
+					"subTitle": "test2",
+					"entitySet": "book",
+					"valueSelectionInfo": "REPLACE_WITH_VALUE_SELECTION_INFO",
+					"identificationAnnotationPath": "com.sap.vocabularies.UI.v1.Identification#testOverView",
+					"presentationAnnotationPath": "com.sap.vocabularies.UI.v1.PresentationVariant",
+					"chartAnnotationPath": "com.sap.vocabularies.UI.v1.Chart#donut",
+					"dataPointAnnotationPath": "com.sap.vocabularies.UI.v1.DataPoint#donutDatapoint"
+				}
+			}
+		},
+		"globalFilterControlType": "MacroFilterBar",
+		"chartSettings": {}
+	},
+	"sap.fiori": {
+		"registrationIds": [],
+		"archeType": "analytical"
+	}
+}

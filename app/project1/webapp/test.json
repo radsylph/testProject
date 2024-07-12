@@ -1,0 +1,55 @@
+{
+	"sap.ui5": {
+		"routing": {
+			"targets": {
+				"entidadOservicio": {
+					"options": {
+						"settings": {
+                            "contextPath":"/nombreDeLaProyeccion",
+                            "variantManagement":"Page",
+                            "navigation": {
+                                "nombreDeLaProyeccion": {
+                                    "detail": {
+                                        "route": "nombreDeLaProyeccion"
+                                    }
+                                }
+                            },
+							"controlConfiguration": {
+								"@com.sap.vocabularies.UI.v1.LineItem": {
+									"tableSettings": {
+										"type": "ResponsiveTable",
+										"selectionMode": "None"
+									}
+								},
+								"@com.sap.vocabularies.UI.v1.SelectionFields": {
+									"layout": "CompactVisual",
+									"initialLayout": "Visual",
+									"filterFields": {
+										"category1": {
+											"availability": "adaptation",
+											"visualFilter": {
+												"valueList": "com.sap.vocabularies.Common.v1.ValueList#vlCategory1"
+											}
+										},
+										"category2": {
+											"visualFilter": {
+												"valueList": "com.sap.vocabularies.Common.v1.ValueList#vlCategory2"
+											}
+										},
+										"publishedAt": {
+											"visualFilter": {
+												"valueList": "com.sap.vocabularies.Common.v1.ValueList#vlPublishedAt"
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+

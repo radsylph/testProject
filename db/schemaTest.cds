@@ -111,13 +111,9 @@ entity person : cuid, managed {
 }
 
 @assert.unique: {
-    SCN: [
-    socialSecurityNumber,
-],
-    email: [
-        email,
-    ],
- }
+    SCN  : [socialSecurityNumber, ],
+    email: [email, ],
+}
 entity employee : person {
     socialSecurityNumber : String @assert.unique;
     position             : Association to position;
@@ -164,4 +160,33 @@ entity book : cuid, managed { //se crea la entidad
     category1   : String  @title: 'Category1';
     category2   : String  @title: 'Category2';
     publishedAt : Date    @title: 'Published At';
+}
+
+entity salesOrderType : cuid, managed {
+    customerCompanyName    : String @title: 'Company Name';
+    revenueInLocalCurrency : String @title: 'Gross ammount';
+    localCurrency          : String @title: 'Currency code';
+    numberOfItems          : String @title: 'Number of items';
+}
+
+entity SalesPerSupplierType : cuid, managed {
+    supplier                      : String(10)     @title       : 'Business Partner ID';
+    supplierName                  : String(80)     @title       : 'Supplier';
+    grossAmountInCompanyCurrency  : Decimal(16, 3) @title       : 'Revenue';
+    netUnitPriceInCompanyCurrency : Decimal(16, 3) @title       : 'Average Item Price';
+    quantity                      : Decimal(13, 3) @title       : 'Number of Sold Items';
+    companyCurrency               : String(5)      @Common.Label: 'ISO Currency Code'    @Common.IsUpperCase: true;
+    quantityUnit                  : String(3)      @Common.Label: 'Unit of Measure';
+    companyCurrencyShortName      : String(15)     @Common.Label: 'Short text';
+    quantityUnitName              : String(10)     @Common.Label: 'Measuremt unit text'  @Common.QuickInfo  : 'Unit of Measurement Text (Maximum 10 Characters)'
+}
+
+entity SalesHistoryType : managed, cuid {
+    creationMonthAsDate          : DateTime;
+    creationMonth                : String(2);
+    creationMonth_Text           : String(10);
+    grossAmountInCompanyCurrency : Decimal(16, 3) @title       : 'Revenue';
+    companyCurrency              : String(5);
+    companyCurrency_Text         : String(40)     @Common.Label: 'Long text';
+    referenceAmount              : Integer;
 }

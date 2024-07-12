@@ -124,7 +124,6 @@
 									"initialLayout": "Visual",
 									"filterFields": {
 										"category1": {
-											"availability": "adaptation",
 											"visualFilter": {
 												"valueList": "com.sap.vocabularies.Common.v1.ValueList#vlCategory1"
 											}
