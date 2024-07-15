@@ -97,28 +97,18 @@
 		"enableLiveFilter": false,
 		"considerAnalyticalParameters": false,
 		"cards": {
-			"donutCard": {
-				"model": "mainService",
+			"LineCard": {
+				"model": "mainModel",
 				"template": "sap.ovp.cards.v4.charts.analytical",
 				"settings": {
-					"title": "{{test1}}",
-					"entitySet": "SalesPerSupplier",
-					"chartAnnotationPath": "com.sap.vocabularies.UI.v1.Chart#donutOverview",
-					"presentationAnnotationPath": "com.sap.vocabularies.UI.v1.PresentationVariant#donutPreVarOV",
-					"dataPointAnnotationPath": "com.sap.vocabularies.UI.v1.DataPoint#GrossAmountInCompanyCurrency",
-					"identificationAnnotationPath": "com.sap.vocabularies.UI.v1.Identification#testOverview"
-				}
-			},
-			"lineCard": {
-				"model": "mainService",
-				"template": "sap.ovp.cards.v4.charts.analytical",
-				"settings": {
-					"title": "{{test2}}",
-					"entitySet": "SalesHistory",
+					"title": "Sales History per capital",
+					"subTitle": "idk",
+					"entitySet": "salesHistory",
+					"valueSelectionInfo": "nose",
+					"identificationAnnotationPath": "com.sap.vocabularies.UI.v1.Identification#testOverview",
+					"presentationAnnotationPath": "com.sap.vocabularies.UI.v1.PresentationVariant#Line",
 					"chartAnnotationPath": "com.sap.vocabularies.UI.v1.Chart#Line",
-					"presentationAnnotationPath": "com.sap.vocabularies.UI.v1.PresentationVariant",
-					"dataPointAnnotationPath": "com.sap.vocabularies.UI.v1.DataPoint#GrossAmountInCompanyCurrency",
-					"identificationAnnotationPath": "com.sap.vocabularies.UI.v1.Identification"
+					"dataPointAnnotationPath": "com.sap.vocabularies.UI.v1.DataPoint#GrossAmountInCompanyCurrency"
 				}
 			}
 		},
