@@ -8,3 +8,8 @@ using from './objective/task/task-annotations';
 using from './book/book-annotations';
 using from './book/library(Test)/librarian-annotations';
 using from './cards/cards';
+using from './Material/material-annotation';
+using from './Category/category-annotation';
+using from './Finances/currency-annotation';
+using from './Finances/buy-annotation';
+using from './cards/cards';

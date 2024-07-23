@@ -1,1 +1,1 @@
-ID,name,lastName,age,email,genre_code,cellphone,createdAt,createdBy,modifiedAt,modifiedBy
+ID,createdAt,createdBy,modifiedAt,modifiedBy,name,lastName,age,email,genre_code,cellphone

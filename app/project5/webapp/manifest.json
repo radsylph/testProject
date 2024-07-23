@@ -1,0 +1,122 @@
+{
+	"_version": "1.59.0",
+	"sap.app": {
+		"id": "testmaterial.project5",
+		"type": "application",
+		"i18n": "i18n/i18n.properties",
+		"applicationVersion": {
+			"version": "0.0.1"
+		},
+		"title": "{{appTitle}}",
+		"description": "{{appDescription}}",
+		"resources": "resources.json",
+		"sourceTemplate": {
+			"id": "@sap/generator-fiori:ovp",
+			"version": "1.14.1",
+			"toolsId": "f67de4a9-83c9-40d9-8274-d8877e3d8e0a"
+		},
+		"dataSources": {
+			"mainService": {
+				"uri": "/overviewRoute/",
+				"type": "OData",
+				"settings": {
+					"annotations": [],
+					"odataVersion": "4.0"
+				}
+			}
+		}
+	},
+	"sap.ui": {
+		"technology": "UI5",
+		"icons": {
+			"icon": "",
+			"favIcon": "",
+			"phone": "",
+			"phone@2": "",
+			"tablet": "",
+			"tablet@2": ""
+		},
+		"deviceTypes": {
+			"desktop": true,
+			"tablet": true,
+			"phone": true
+		}
+	},
+	"sap.ui5": {
+		"flexEnabled": true,
+		"dependencies": {
+			"minUI5Version": "1.126.1",
+			"libs": {
+				"sap.m": {},
+				"sap.ui.core": {},
+				"sap.ushell": {},
+				"sap.fe.templates": {},
+				"sap.ovp": {},
+				"sap.ui.rta": {},
+				"sap.ui.layout": {}
+			}
+		},
+		"contentDensities": {
+			"compact": true,
+			"cozy": true
+		},
+		"models": {
+			"i18n": {
+				"type": "sap.ui.model.resource.ResourceModel",
+				"settings": {
+					"bundleName": "testmaterial.project5.i18n.i18n"
+				}
+			},
+			"mainModel": {
+				"dataSource": "mainService",
+				"preload": true,
+				"settings": {
+					"operationMode": "Server",
+					"autoExpandSelect": true,
+					"earlyRequests": true
+				}
+			},
+			"@i18n": {
+				"type": "sap.ui.model.resource.ResourceModel",
+				"uri": "i18n/i18n.properties"
+			}
+		},
+		"resources": {
+			"css": []
+		},
+		"routing": {
+			"config": {},
+			"routes": [],
+			"targets": {}
+		}
+	},
+	"sap.ovp": {
+		"globalFilterModel": "mainModel",
+		"globalFilterEntityType": "category",
+		"containerLayout": "resizable",
+		"enableLiveFilter": false,
+		"considerAnalyticalParameters": false,
+		"cards": {
+			"testMaterial": {
+				"model": "mainModel",
+				"template": "sap.ovp.cards.v4.charts.analytical",
+				"settings": {
+					"title": "test",
+					"subTitle": "test",
+					"entitySet": "material",
+					"valueSelectionInfo": "test",
+					"identificationAnnotationPath": "com.sap.vocabularies.UI.v1.Identification#LineID",
+					"presentationAnnotationPath": "com.sap.vocabularies.UI.v1.PresentationVariant#Line",
+					"chartAnnotationPath": "com.sap.vocabularies.UI.v1.Chart#Line",
+					"dataPointAnnotationPath": "com.sap.vocabularies.UI.v1.DataPoint#LineDataPoint"
+				}
+			}
+		},
+		"globalFilterControlType": "MacroFilterBar",
+		"chartSettings": {}
+	},
+	"sap.fiori": {
+		"registrationIds": [],
+		"archeType": "analytical"
+	}
+}

@@ -1,40 +1,49 @@
 {
-	"name": "test-project",
-	"version": "1.0.0",
-	"description": "A simple CAP project.",
-	"repository": "<Add your repository here>",
-	"license": "UNLICENSED",
-	"private": true,
-	"dependencies": {
-		"@cap-js-community/odata-v2-adapter": "^1.12.12",
-		"@cap-js/postgres": "^1.8.0",
-		"@cap-js/sqlite": "^1.7.1",
-		"@sap/cds": "^7",
-		"@sap/textbundle": "^5.1.0",
-		"axios": "^1.7.2",
-		"concurrently": "^8.2.2",
-		"express": "^4"
-	},
-	"devDependencies": {
-		"@sap/eslint-plugin-cds": "^3",
-		"@sap/ux-specification": "^1.120.14",
-		"eslint": "^9"
-	},
-	"scripts": {
-		"start": "cds-serve",
-		"dev": "cds watch --profile pg",
-		"db:dev": "cds watch --profile dev",
-		"db:deploy": "cds deploy --profile pg",
-		"db:deploy:dev": "cds deploy --profile dev",
-		"db:test": "cds deploy --profile sqlite",
-		"test": "node ./handlers/scripts.js -i",
-		"db:compose": "docker-compose -f pg.yml up -d",
-		"docker:init": "concurrently \"npm run db:compose\" \"npm run initial\"",
-		"initial": "concurrently \"npm run db:data\" \"npm run db:deploy\"",
-		"db:data": "cds add data",
-		"watch-project1": "cds watch --open project1/webapp/index.html?sap-ui-xx-viewCache=false",
-		"watch-project2": "cds watch --open project2/webapp/index.html?sap-ui-xx-viewCache=false",
-		"watch-project3": "cds watch --open project3/webapp/index.html?sap-ui-xx-viewCache=false"
-	},
-	"sapux": ["app/project1", "app/project2", "app/project3"]
+  "name": "test-project",
+  "version": "1.0.0",
+  "description": "A simple CAP project.",
+  "repository": "<Add your repository here>",
+  "license": "UNLICENSED",
+  "private": true,
+  "dependencies": {
+    "@cap-js-community/odata-v2-adapter": "^1.12.12",
+    "@cap-js/postgres": "^1.8.0",
+    "@cap-js/sqlite": "^1.7.1",
+    "@sap/cds": "^7",
+    "@sap/textbundle": "^5.1.0",
+    "axios": "^1.7.2",
+    "concurrently": "^8.2.2",
+    "express": "^4"
+  },
+  "devDependencies": {
+    "@sap/eslint-plugin-cds": "^3",
+    "@sap/ux-specification": "^1.120.14",
+    "eslint": "^9"
+  },
+  "scripts": {
+    "start": "cds-serve",
+    "dev": "cds watch --profile pg",
+    "db:dev": "cds watch --profile dev",
+    "db:deploy": "cds deploy --profile pg",
+    "db:deploy:dev": "cds deploy --profile dev",
+    "db:test": "cds deploy --profile sqlite",
+    "test": "node ./handlers/scripts.js -i",
+    "db:compose": "docker-compose -f pg.yml up -d",
+    "db:init": "concurrently -m 1 \"npm run db:compose\" \"npm run db:data\" \"npm run db:deploy\" ",
+    "db:data": "concurrently -m 1 \"cds add data --profile pg\" \"npm run db:deploy\"",
+    "db:data:dev": "concurrently -m 1 \"cds add data --profile dev\" \"npm run db:deploy:dev\"",
+    "watch": "cds-ts w",
+    "watch-project1": "cds watch --open project1/webapp/index.html?sap-ui-xx-viewCache=false",
+    "watch-project2": "cds watch --open project2/webapp/index.html?sap-ui-xx-viewCache=false",
+    "watch-project3": "cds watch --open project3/webapp/index.html?sap-ui-xx-viewCache=false",
+    "watch-project4": "cds watch --open project4/webapp/index.html?sap-ui-xx-viewCache=false",
+    "watch-project5": "cds watch --open project5/webapp/index.html?sap-ui-xx-viewCache=false"
+  },
+  "sapux": [
+    "app/project1",
+    "app/project2",
+    "app/project3",
+    "app/project4",
+    "app/project5"
+  ]
 }
