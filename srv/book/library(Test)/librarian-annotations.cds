@@ -9,7 +9,7 @@ annotate call.book with {
     publishedAt @title: '{i18n>book.publishedAt}';
 };
 
-annotate call.book with  @odata.draft.enabled  @( // Smart Chart
+annotate call.book with @( // Smart Chart
 
     SelectionFields                  : [
         title,

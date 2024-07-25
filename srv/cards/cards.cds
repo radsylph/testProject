@@ -69,8 +69,6 @@ annotate call.salesOrder with  @odata.draft.enabled  @(UI: {
         $Type : 'UI.ReferenceFacet',
         Target: '@UI.FieldGroup#generalInfo'
     }],
-
-
 });
 
 annotate call.salesOrder with {
@@ -81,12 +79,102 @@ annotate call.salesOrder with {
 };
 
 
+annotate call.salesPerSupplier with {
+    supplier                      @title: 'Supplier';
+    supplierName                  @title: 'Supplier Name';
+    grossAmountInCompanyCurrency  @title: 'net test';
+    netUnitPriceInCompanyCurrency @title: 'net test2';
+    quantityUnit                  @title: 'quantity Unit';
+    companyCurrencyShortName      @title: 'Company currency short name';
+    quantityUnitName              @title: 'Quantity Unit Name';
+}
+
+// annotate call.salesPerSupplier with  @odata.draft.enabled  @(UI: {
+//     SelectionFields: [
+//         supplierName,
+//         quantityUnitName
+//     ],
+
+//     LineItem       : [
+//         {
+//             $Type: 'UI.DataField',
+//             Value: supplierName
+//         },
+//         {
+//             $Type: 'UI.DataField',
+//             Value: grossAmountInCompanyCurrency
+//         },
+//         {
+//             $Type: 'UI.DataField',
+//             Value: netUnitPriceInCompanyCurrency
+//         },
+//         {
+//             $Type: 'UI.DataField',
+//             Value: quantity
+//         },
+//         {
+//             $Type: 'UI.DataField',
+//             Value: companyCurrency
+//         },
+//         {
+//             $Type: 'UI.DataField',
+//             Value: quantityUnit
+//         },
+//         {
+//             $Type: 'UI.DataField',
+//             Value: companyCurrencyShortName
+//         },
+//         {
+//             $Type: 'UI.DataField',
+//             Value: quantityUnitName
+//         }
+//     ],
+
+//     FieldGroup     : {
+//         $Type: 'UI.FieldGroupType',
+//         Data : [
+//             {
+//                 $Type: 'UI.DataField',
+//                 Value: supplier
+//             },
+//             {
+//                 $Type: 'UI.DataField',
+//                 Value: supplierName
+//             },
+//             {
+//                 $Type: 'UI.DataField',
+//                 Value: quantity
+//             },
+//             {
+//                 $Type: 'UI.DataField',
+//                 Value: quantityUnit
+//             },
+//             {
+//                 $Type: 'UI.DataField',
+//                 Value: quantityUnitName
+//             },
+//             {
+//                 $Type: 'UI.DataField',
+//                 Value: companyCurrency
+//             },
+//             {
+//                 $Type: 'UI.DataField',
+//                 Value: companyCurrencyShortName
+//             },
+//             {
+//                 $Type: 'UI.DataField',
+//                 Value: netUnitPriceInCompanyCurrency
+//             }
+//         ]
+//     },
+// });
+
 //Donut Chart
 annotate call.salesPerSupplier with @(UI: {
 
     Chart #donutOverview                   : {
         $Type              : 'UI.ChartDefinitionType',
-        ChartType          : #Donut,
+        ChartType          : #Donut100,
         Description        : 'Donut Chart',
         Measures           : [grossAmountInCompanyCurrency],
         MeasureAttributes  : [{
@@ -146,19 +234,22 @@ annotate call.salesPerSupplier with @(UI: {
 
 
 annotate call.salesHistory with {
-    modifiedAt           @UI.Hidden;
-    modifiedBy           @UI.Hidden;
-    createdAt            @UI.Hidden;
-    createdBy            @UI.Hidden;
-    companyCurrency      @title: 'Currency'  @Measures.ISOCurrency: 'Currency';
-    companyCurrency_Text @title: '';
-    creationMonthAsDate  @title: 'Creation Date';
-    creationMonth        @title: 'Month';
-    creationMonth_Text   @title: 'Month'     @Common.QuickInfo    : 'Month Long text';
-    referenceAmount      @title: 'Amount';
+    modifiedAt                   @UI.Hidden;
+    modifiedBy                   @UI.Hidden;
+    createdAt                    @UI.Hidden;
+    createdBy                    @UI.Hidden;
+    companyCurrency              @title: 'Currency'  @Measures.ISOCurrency: 'Currency';
+    companyCurrency_Text         @title: 'test';
+    creationMonthAsDate          @title: 'Creation Date';
+    creationMonth                @title: 'Month';
+    creationMonth_Text           @title: 'Month'     @Common.QuickInfo    : 'Month Long text';
+    referenceAmount              @title: 'Amount';
+    grossAmountInCompanyCurrency @title: 'test2';
 };
 
-//Line Chart
+
+// //Line Chart
+
 annotate call.salesHistory with @(
     UI.Chart #Line                            : {
         $Type              : 'UI.ChartDefinitionType',
@@ -209,3 +300,63 @@ annotate call.salesHistory with @(
         }
     }
 );
+
+
+annotate call.salesHistory with  @odata.draft.enabled  @(UI: {
+    SelectionFields: [
+        companyCurrency,
+        referenceAmount
+    ],
+    LineItem       : [
+        {
+            $Type: 'UI.DataField',
+            Value: ID
+        },
+        {
+            $Type: 'UI.DataField',
+            Value: creationMonthAsDate
+        },
+        {
+            $Type: 'UI.DataField',
+            Value: grossAmountInCompanyCurrency
+        },
+        {
+            $Type: 'UI.DataField',
+            Value: companyCurrency_Text
+        },
+        {
+            $Type: 'UI.DataField',
+            Value: referenceAmount
+        }
+    ],
+
+    FieldGroup     : {
+        $Type: 'UI.FieldGroupType',
+        Data : [
+            {
+                $Type: 'UI.DataField',
+                Value: creationMonthAsDate
+            },
+            {
+                $Type: 'UI.DataField',
+                Value: creationMonth_Text
+            },
+            {
+                $Type: 'UI.DataField',
+                Value: grossAmountInCompanyCurrency
+            },
+            {
+                $Type: 'UI.DataField',
+                Value: companyCurrency
+            },
+            {
+                $Type: 'UI.DataField',
+                Value: companyCurrency_Text
+            },
+            {
+                $Type: 'UI.DataField',
+                Value: referenceAmount
+            }
+        ]
+    }
+});

@@ -93,6 +93,7 @@
 	"sap.ovp": {
 		"globalFilterModel": "mainModel",
 		"globalFilterEntityType": "salesOrder",
+		
 		"containerLayout": "resizable",
 		"enableLiveFilter": false,
 		"considerAnalyticalParameters": false,
@@ -108,6 +109,20 @@
 					"identificationAnnotationPath": "com.sap.vocabularies.UI.v1.Identification#testOverview",
 					"presentationAnnotationPath": "com.sap.vocabularies.UI.v1.PresentationVariant#Line",
 					"chartAnnotationPath": "com.sap.vocabularies.UI.v1.Chart#Line",
+					"dataPointAnnotationPath": "com.sap.vocabularies.UI.v1.DataPoint#GrossAmountInCompanyCurrency"
+				}
+			},
+			"DonutCard": {
+				"model": "mainModel",
+				"template": "sap.ovp.cards.v4.charts.analytical",
+				"settings": {
+					"title": "Sales per Supplier",
+					"subTitle": "idk",
+					"entitySet": "salesPerSupplier",
+					"valueSelectionInfo": "test",
+					"identificationAnnotationPath": "com.sap.vocabularies.UI.v1.Identification#testOverview",
+					"presentationAnnotationPath": "com.sap.vocabularies.UI.v1.PresentationVariant#donutPreVarOV",
+					"chartAnnotationPath": "com.sap.vocabularies.UI.v1.Chart#donutOverview",
 					"dataPointAnnotationPath": "com.sap.vocabularies.UI.v1.DataPoint#GrossAmountInCompanyCurrency"
 				}
 			}
