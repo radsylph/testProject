@@ -25,6 +25,17 @@ service overViewService @(path: '/overviewRoute') {
     entity sell_movement    as projection on db.sell_movement;
     entity buy_movement     as projection on db.buy_movement;
     entity movement         as projection on db.movement;
+
+    @cds.redirection.target: 'com.test.buy_receipt'
+    view testReceipt as
+        select from buy_receipt {
+            ID,
+            dat_receipt,
+            rec_type,
+
+        };
+
+
 }
 
 service libraryService @(path: '/libraryRoute') {

@@ -10,9 +10,7 @@ class employeeHandler {
     const validateEmail = (email) => {
       return emailRegex.test(email);
     };
-
     const SCNRegex = /^[0-9]{3}-[0-9]{2}-[0-9]{4}$/;
-
     const validateSCN = (scn) => {
       return SCNRegex.test(scn);
     };
@@ -20,23 +18,17 @@ class employeeHandler {
     const employeeEmail = validateEmail(employee.email);
     const employeeSCN = validateSCN(employee.socialSecurityNumber);
     console.log(employee);
-
     if (employeeEmail === false) {
       req.reject(400, bundle.getText("error1"));
     }
-
     if (employeeSCN === false) {
       req.reject(400, bundle.getText("error3"));
     }
-
     const employeeOldInfo = await cds.transaction(req).run(
       SELECT("testService.employee").where({
         ID: employee.ID,
       })
     );
-    //console.log(employeeOldInfo[0].email);
-    //console.log(employee.email);
-    //console.log(employeeOldInfo[0].email !== employee.email);
     if (employeeOldInfo[0] && employeeOldInfo[0].email !== employee.email) {
       const existingEmail = await cds.transaction(req).run(
         SELECT("testService.employee").where({

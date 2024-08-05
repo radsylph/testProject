@@ -137,5 +137,4 @@ annotate call.buy_receipt with  @odata.draft.enabled  @(UI: {
 
 //overview cards
 
-//Line 
-
+//Line

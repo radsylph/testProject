@@ -9,7 +9,7 @@ annotate call.book with {
     publishedAt @title: '{i18n>book.publishedAt}';
 };
 
-annotate call.book with @( // Smart Chart
+annotate call.book with @( 
 
     SelectionFields                      : [
         title,
@@ -20,7 +20,7 @@ annotate call.book with @( // Smart Chart
 
     UI.Chart #donut                      : {
         $Type              : 'UI.ChartDefinitionType',
-        ChartType          : #Donut,
+        ChartType          : #Column,
         Description        : 'Donut Chart',
         Measures           : [stock],
         AxisScaling        : {
