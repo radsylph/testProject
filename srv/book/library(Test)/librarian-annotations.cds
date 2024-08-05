@@ -11,18 +11,23 @@ annotate call.book with {
 
 annotate call.book with @( // Smart Chart
 
-    SelectionFields                  : [
+    SelectionFields                      : [
         title,
         category1,
         category2,
         publishedAt
     ],
 
-    UI.Chart #donut                  : {
+    UI.Chart #donut                      : {
         $Type              : 'UI.ChartDefinitionType',
         ChartType          : #Donut,
         Description        : 'Donut Chart',
         Measures           : [stock],
+        AxisScaling        : {
+
+            $Type        : 'UI.ChartAxisScalingType',
+            ScaleBehavior: #FixedScale,
+        },
         MeasureAttributes  : [{
             $Type    : 'UI.ChartMeasureAttributeType',
             Measure  : stock,
@@ -37,18 +42,51 @@ annotate call.book with @( // Smart Chart
         }]
     },
 
-    UI.PresentationVariant #donutPrev: {
+    UI.SelectionPresentationVariant #test: {
+        $Type              : 'UI.SelectionPresentationVariantType',
+        SelectionVariant   : {SelectOptions: [{
+            PropertyName: category1,
+            Ranges      : [{
+
+                Sign  : #E,
+                Option: #EQ,
+                Low   : 'test'
+            }]
+        }]},
+        PresentationVariant: {
+            SortOrder     : [{
+                Property  : category1,
+                Descending: false
+            }],
+            Visualizations: ['@UI.LineItem'],
+        },
+    },
+
+    UI.SelectionVariant #testSelection   : {
+        Text         : 'test me quiero morir',
+        SelectOptions: [{
+            PropertyName: stock,
+            Ranges      : [{
+                Sign  : #I,
+                Option: #EQ,
+                Low   : 0
+            }]
+        }]
+    },
+
+    UI.PresentationVariant #donutPrev    : {
         $Type         : 'UI.PresentationVariantType',
         Visualizations: ['@UI.Chart#donut'],
     },
 
-    UI.DataPoint #donutDatapoint     : {
-        $Type: 'UI.DataPointType',
-        Value: stock,
-
+    UI.DataPoint #donutDatapoint         : {
+        $Type       : 'UI.DataPointType',
+        Value       : stock,
+        MinimumValue: 1,
+        MaximumValue: 5,
     },
 
-    UI.Chart #primary                : {
+    UI.Chart #primary                    : {
         $Type              : 'UI.ChartDefinitionType',
         Title              : 'Stock',
         ChartType          : #Column,
@@ -77,14 +115,32 @@ annotate call.book with @( // Smart Chart
             Role          : #Axis1
         }]
     },
-    UI.PresentationVariant           : {
+    UI.PresentationVariant               : {
         $Type         : 'UI.PresentationVariantType',
         Visualizations: ['@UI.Chart#primary']
     },
-    UI.Identification #testOverView  : [{
-        $Type: 'UI.DataField',
-        Value: stock
-    }]
+    UI.Identification #testOverView      : [
+        {
+            $Type: 'UI.DataField',
+            Value: stock
+        },
+        {
+            $Type: 'UI.DataField',
+            Value: title
+        },
+        {
+            $Type: 'UI.DataField',
+            Value: category1
+        },
+        {
+            $Type: 'UI.DataField',
+            Value: category2
+        },
+        {
+            $Type: 'UI.DataField',
+            Value: publishedAt
+        }
+    ]
 );
 
 annotate call.book with @( //visual filters for category 1

@@ -10,6 +10,7 @@
     "@cap-js/postgres": "^1.8.0",
     "@cap-js/sqlite": "^1.7.1",
     "@sap/cds": "^7",
+    "@sap/cds-odata-v2-adapter-proxy": "^1.8.9",
     "@sap/textbundle": "^5.1.0",
     "axios": "^1.7.2",
     "concurrently": "^8.2.2",
@@ -17,7 +18,7 @@
   },
   "devDependencies": {
     "@sap/eslint-plugin-cds": "^3",
-    "@sap/ux-specification": "^1.120.14",
+    "@sap/ux-specification": "^1.120.15",
     "eslint": "^9"
   },
   "scripts": {
@@ -37,13 +38,17 @@
     "watch-project2": "cds watch --open project2/webapp/index.html?sap-ui-xx-viewCache=false",
     "watch-project3": "cds watch --open project3/webapp/index.html?sap-ui-xx-viewCache=false",
     "watch-project4": "cds watch --open project4/webapp/index.html?sap-ui-xx-viewCache=false",
-    "watch-project5": "cds watch --open project5/webapp/index.html?sap-ui-xx-viewCache=false"
+    "watch-project5": "cds watch --open project5/webapp/index.html?sap-ui-xx-viewCache=false",
+    "watch-project6": "cds watch --open project6/webapp/index.html?sap-ui-xx-viewCache=false",
+    "watch-project7": "cds watch --open project7/webapp/index.html?sap-ui-xx-viewCache=false"
   },
   "sapux": [
     "app/project1",
     "app/project2",
     "app/project3",
     "app/project4",
-    "app/project5"
+    "app/project5",
+    "app/project6",
+    "app/project7"
   ]
 }

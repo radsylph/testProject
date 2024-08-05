@@ -32,71 +32,71 @@ annotate call.material with {
     })
 };
 
-annotate call.material with  @odata.draft.enabled  @(UI: {
-    HeaderInfo            : {
-        $Type         : 'UI.HeaderInfoType',
-        TypeName      : '{i18n>mat_header1}',
-        TypeNamePlural: '{i18n>mat_header2}',
-        Title         : {
-            $Type: 'UI.DataField',
-            Value: nam_mat
-        }
-    },
+// annotate call.material with  @odata.draft.enabled  @(UI: {
+//     HeaderInfo            : {
+//         $Type         : 'UI.HeaderInfoType',
+//         TypeName      : '{i18n>mat_header1}',
+//         TypeNamePlural: '{i18n>mat_header2}',
+//         Title         : {
+//             $Type: 'UI.DataField',
+//             Value: nam_mat
+//         }
+//     },
 
-    SelectionFields       : [
-        nam_mat,
-        cat_mat_ID,
-        pri_mate
-    ],
+//     SelectionFields       : [
+//         nam_mat,
+//         cat_mat_ID,
+//         pri_mate
+//     ],
 
-    FieldGroup #MaterialFG: {
-        $Type: 'UI.FieldGroupType',
-        Data : [
-            {
-                $Type: 'UI.DataField',
-                Value: nam_mat
-            },
-            {
-                $Type: 'UI.DataField',
-                Value: des_mat
-            },
-            {
-                $Type: 'UI.DataField',
-                Value: cat_mat_ID
-            },
-            {
-                $Type: 'UI.DataField',
-                Value: pri_mate
-            }
-        ]
-    },
+//     FieldGroup #MaterialFG: {
+//         $Type: 'UI.FieldGroupType',
+//         Data : [
+//             {
+//                 $Type: 'UI.DataField',
+//                 Value: nam_mat
+//             },
+//             {
+//                 $Type: 'UI.DataField',
+//                 Value: des_mat
+//             },
+//             {
+//                 $Type: 'UI.DataField',
+//                 Value: cat_mat_ID
+//             },
+//             {
+//                 $Type: 'UI.DataField',
+//                 Value: pri_mate
+//             }
+//         ]
+//     },
 
-    LineItem              : [
-        {
-            $Type: 'UI.DataField',
-            Value: nam_mat
-        },
-        {
-            $Type: 'UI.DataField',
-            Value: des_mat
-        },
-        {
-            $Type: 'UI.DataField',
-            Value: cat_mat_ID
-        },
-        {
-            $Type: 'UI.DataField',
-            Value: pri_mate
-        }
-    ],
+//     LineItem              : [
+//         {
+//             $Type: 'UI.DataField',
+//             Value: nam_mat
+//         },
+//         {
+//             $Type: 'UI.DataField',
+//             Value: des_mat
+//         },
+//         {
+//             $Type: 'UI.DataField',
+//             Value: cat_mat_ID
+//         },
+//         {
+//             $Type: 'UI.DataField',
+//             Value: pri_mate
+//         }
+//     ],
 
-    Facets                : [{
-        $Type : 'UI.ReferenceFacet',
-        Target: '@UI.FieldGroup#MaterialFG',
-        Label : '{i18n>mat_fac}',
-        ID    : 'FieldGroup'
-    }]
-});
+//     Facets                : [{
+//         $Type : 'UI.ReferenceFacet',
+//         Target: '@UI.FieldGroup#MaterialFG',
+//         Label : '{i18n>mat_fac}',
+//         ID    : 'FieldGroup'
+//     }]
+// });
 
 annotate call.material with @(
     UI.Chart #Line              : {

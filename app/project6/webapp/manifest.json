@@ -1,7 +1,7 @@
 {
 	"_version": "1.59.0",
 	"sap.app": {
-		"id": "project3",
+		"id": "project6",
 		"type": "application",
 		"i18n": "i18n/i18n.properties",
 		"applicationVersion": {
@@ -13,15 +13,15 @@
 		"sourceTemplate": {
 			"id": "@sap/generator-fiori:ovp",
 			"version": "1.14.1",
-			"toolsId": "742d0e79-7551-4f9f-abb9-549b06509f6f"
+			"toolsId": "328d60f2-b840-4c60-abf1-68235b0c279e"
 		},
 		"dataSources": {
 			"mainService": {
-				"uri": "http://localhost:4004/odata/v2/libraryRoute/",
+				"uri": "/overviewRoute/",
 				"type": "OData",
 				"settings": {
 					"annotations": [],
-					"odataVersion": "2.0"
+					"odataVersion": "4.0"
 				}
 			}
 		}
@@ -45,7 +45,7 @@
 	"sap.ui5": {
 		"flexEnabled": true,
 		"dependencies": {
-			"minUI5Version": "1.125.1",
+			"minUI5Version": "1.120.17",
 			"libs": {
 				"sap.m": {},
 				"sap.ui.core": {},
@@ -64,7 +64,7 @@
 			"i18n": {
 				"type": "sap.ui.model.resource.ResourceModel",
 				"settings": {
-					"bundleName": "project3.i18n.i18n"
+					"bundleName": "project6.i18n.i18n"
 				}
 			},
 			"mainModel": {
@@ -92,51 +92,37 @@
 	},
 	"sap.ovp": {
 		"globalFilterModel": "mainModel",
-		"globalFilterEntityType": "book",
+		"globalFilterEntityType": "salesOrder",
 		"containerLayout": "resizable",
 		"enableLiveFilter": false,
 		"considerAnalyticalParameters": false,
 		"cards": {
-			"testCard": {
+			"LineCard": {
 				"model": "mainModel",
-				"template": "sap.ovp.cards.charts.analytical",
+				"template": "sap.ovp.cards.v4.charts.analytical",
 				"settings": {
-					"title": "{{titulo}}",
-					"subTitle": "{{subtitulo}}",
-					"entitySet": "book",
-					"valueSelectionInfo": "{{REPLACE_WITH_VALUE_SELECTION_INFO}}",
-					"identificationAnnotationPath": "com.sap.vocabularies.UI.v1.Identification#testOverView",
-					"presentationAnnotationPath": "com.sap.vocabularies.UI.v1.PresentationVariant#prevCategory1",
-					"chartAnnotationPath": "com.sap.vocabularies.UI.v1.Chart#secondary",
-					"dataPointAnnotationPath": "com.sap.vocabularies.UI.v1.DataPoint#donutDatapoint"
+					"title": "Sales History per capital",
+					"subTitle": "idk",
+					"entitySet": "salesHistory",
+					"valueSelectionInfo": "nose",
+					"identificationAnnotationPath": "com.sap.vocabularies.UI.v1.Identification#testOverview",
+					"presentationAnnotationPath": "com.sap.vocabularies.UI.v1.PresentationVariant#Line",
+					"chartAnnotationPath": "com.sap.vocabularies.UI.v1.Chart#Line",
+					"dataPointAnnotationPath": "com.sap.vocabularies.UI.v1.DataPoint#GrossAmountInCompanyCurrency"
 				}
 			},
-			"TestDonut": {
+			"DonutCard": {
 				"model": "mainModel",
-				"template": "sap.ovp.cards.charts.analytical",
+				"template": "sap.ovp.cards.v4.charts.analytical",
 				"settings": {
-					"title": "{i18n>donut}",
-					"subTitle": "{i18n>donut}",
-					"entitySet": "book",
+					"title": "Sales per Supplier",
+					"subTitle": "idk",
+					"entitySet": "salesPerSupplier",
 					"valueSelectionInfo": "test",
-					"identificationAnnotationPath": "com.sap.vocabularies.UI.v1.Identification#testOverView",
-					"presentationAnnotationPath": "com.sap.vocabularies.UI.v1.PresentationVariant#donutPrev",
-					"chartAnnotationPath": "com.sap.vocabularies.UI.v1.Chart#donut",
-					"dataPointAnnotationPath": "com.sap.vocabularies.UI.v1.DataPoint#donutDatapoint"
-				}
-			},
-			"TestTable": {
-				"model": "mainModel",
-				"template": "sap.ovp.cards.table",
-				"settings": {
-					"title": "{i18n>testTable}",
-					"entitySet": "book",
-					"sortOrder": "ascending",
-					"sortBy": "stock",
-					"annotationPath": "com.sap.vocabularies.UI.v1.LineItem#com.sap.vocabularies.UI.v1.LineItem",
-					"dataPointAnnotationPath": "com.sap.vocabularies.UI.v1.DataPoint#donutDatapoint",
-					"selectionAnnotationPath": "com.sap.vocabularies.UI.v1.SelectionVariant#testSelection",
-					"identificationAnnotationPath": "com.sap.vocabularies.UI.v1.Identification#testOverView"
+					"identificationAnnotationPath": "com.sap.vocabularies.UI.v1.Identification#testOverview",
+					"presentationAnnotationPath": "com.sap.vocabularies.UI.v1.PresentationVariant#donutPreVarOV",
+					"chartAnnotationPath": "com.sap.vocabularies.UI.v1.Chart#donutOverview",
+					"dataPointAnnotationPath": "com.sap.vocabularies.UI.v1.DataPoint#GrossAmountInCompanyCurrency"
 				}
 			}
 		},

@@ -1,7 +1,7 @@
 {
 	"_version": "1.59.0",
 	"sap.app": {
-		"id": "project2",
+		"id": "project7",
 		"type": "application",
 		"i18n": "i18n/i18n.properties",
 		"applicationVersion": {
@@ -13,15 +13,15 @@
 		"sourceTemplate": {
 			"id": "@sap/generator-fiori:ovp",
 			"version": "1.14.1",
-			"toolsId": "a9131ad6-e7fd-4a88-93a6-41eff23ae6c5"
+			"toolsId": "7f65c6f1-ab43-4a8e-b029-c8b471668b1f"
 		},
 		"dataSources": {
 			"mainService": {
-				"uri": "http://localhost:4004/odata/v2/overviewRoute/",
+				"uri": "/overviewRoute/",
 				"type": "OData",
 				"settings": {
 					"annotations": [],
-					"odataVersion": "2.0"
+					"odataVersion": "4.0"
 				}
 			}
 		}
@@ -45,7 +45,7 @@
 	"sap.ui5": {
 		"flexEnabled": true,
 		"dependencies": {
-			"minUI5Version": "1.125.1",
+			"minUI5Version": "1.120.0",
 			"libs": {
 				"sap.m": {},
 				"sap.ui.core": {},
@@ -64,7 +64,7 @@
 			"i18n": {
 				"type": "sap.ui.model.resource.ResourceModel",
 				"settings": {
-					"bundleName": "project2.i18n.i18n"
+					"bundleName": "project7.i18n.i18n"
 				}
 			},
 			"mainModel": {
@@ -92,50 +92,28 @@
 	},
 	"sap.ovp": {
 		"globalFilterModel": "mainModel",
-		"globalFilterEntityType": "salesOrder",
-
+		"globalFilterEntityType": "material",
 		"containerLayout": "resizable",
 		"enableLiveFilter": false,
 		"considerAnalyticalParameters": false,
 		"cards": {
-			"LineCard": {
+			"nose": {
 				"model": "mainModel",
-				"template": "sap.ovp.cards.charts.analytical",
+				"template": "sap.ovp.cards.v4.charts.analytical",
 				"settings": {
-					"title": "Sales History per capital",
-					"subTitle": "idk",
-					"entitySet": "salesHistory",
-					"valueSelectionInfo": "nose",
-					"identificationAnnotationPath": "com.sap.vocabularies.UI.v1.Identification#testOverview",
+					"title": "test",
+					"subTitle": "tset",
+					"entitySet": "material",
+					"valueSelectionInfo": "asd",
+					"identificationAnnotationPath": "com.sap.vocabularies.UI.v1.Identification#LineID",
 					"presentationAnnotationPath": "com.sap.vocabularies.UI.v1.PresentationVariant#Line",
 					"chartAnnotationPath": "com.sap.vocabularies.UI.v1.Chart#Line",
-					"dataPointAnnotationPath": "com.sap.vocabularies.UI.v1.DataPoint#GrossAmountInCompanyCurrency"
-				}
-			},
-			"DonutCard": {
-				"model": "mainModel",
-				"template": "sap.ovp.cards.charts.analytical",
-				"settings": {
-					"title": "Sales per Supplier",
-					"subTitle": "idk",
-					"entitySet": "salesPerSupplier",
-					"valueSelectionInfo": "test",
-					"identificationAnnotationPath": "com.sap.vocabularies.UI.v1.Identification#testOverview",
-					"presentationAnnotationPath": "com.sap.vocabularies.UI.v1.PresentationVariant#donutPreVarOV",
-					"chartAnnotationPath": "com.sap.vocabularies.UI.v1.Chart#donutOverview",
-					"dataPointAnnotationPath": "com.sap.vocabularies.UI.v1.DataPoint#GrossAmountInCompanyCurrency"
+					"dataPointAnnotationPath": "com.sap.vocabularies.UI.v1.DataPoint#LineDataPoint"
 				}
 			}
 		},
 		"globalFilterControlType": "MacroFilterBar",
-		"chartSettings": {
-			"showDataLabel": true,
-			"salesHistory": {
-				"Line": {
-					"colorPalette": "sapUiChartPaletteSemantic"
-				}
-			}
-		}
+		"chartSettings": {}
 	},
 	"sap.fiori": {
 		"registrationIds": [],
